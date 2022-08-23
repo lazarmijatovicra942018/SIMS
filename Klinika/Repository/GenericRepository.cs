@@ -33,7 +33,7 @@ namespace Klinika.Repository
             List<T> outputList;
 
 
-            using (Stream Stream = new FileStream(@"..\\..\\Files\\" + filePath, FileMode.OpenOrCreate))
+            using (Stream Stream = new FileStream(@"..\\..\\File\\" + filePath, FileMode.OpenOrCreate))
             using (StreamReader sr = new StreamReader(Stream))
             using (JsonReader jsonReader = new JsonTextReader(sr))
             {

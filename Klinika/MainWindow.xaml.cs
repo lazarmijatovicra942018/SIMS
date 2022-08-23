@@ -1,4 +1,7 @@
-﻿using System;
+﻿using klinika.Enum;
+using Klinika.Controller;
+using Klinika.ViewManager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +23,15 @@ namespace Klinika
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void ButtonLogin(object sender, RoutedEventArgs e)
-        {
+            MainFrame.NavigationService.Navigate(new LoginView());
 
         }
+
     }
 }

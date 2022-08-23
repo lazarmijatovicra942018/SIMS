@@ -8,21 +8,6 @@
         Background="#F7FF93"
         Title="Klinika Zdravo" Height="450" Width="800">   
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45" />
-            <RowDefinition Height="*" />
-
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#069A8E">
-        </Grid>
-        <Grid Grid.Row="1" >
-
-            <Label Content="Korisničko ime:" FontFamily="Bold,Candra"  HorizontalAlignment="Left" FontSize="20" Margin="130,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.413,2.968" />
-            <TextBox   TextWrapping="Wrap" x:Name="username" FontSize="15" HorizontalAlignment="Center" VerticalContentAlignment="Center" ToolTip="Unesite korisničko ime"  Margin="0,123,0,0"  VerticalAlignment="Top" Width="200" Height="30"  RenderTransformOrigin="0.497,2.675" SelectionBrush="#005555"/>
-            <Label Content="Šifra:" HorizontalAlignment="Left" FontSize="20" Margin="130,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-0.724,0.464" />
-            <PasswordBox  x:Name="password" FontSize="15" HorizontalAlignment="Center" VerticalContentAlignment="Center" ToolTip="Unesite lozinku"  VerticalAlignment="Center" Width="200" Height="30" RenderTransformOrigin="0.376,0.67" SelectionBrush="#005555"/>
-            <Button Content="PRIJAVA"   Click="ButtonLogin"  Background="#005555"  FontFamily="Candara" Foreground="White" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,276,0,0" VerticalAlignment="Top" Height="30" Width="100" RenderTransformOrigin="0.549,2.243"/>
-        </Grid>
-
+        <Frame NavigationUIVisibility="Hidden" x:Name="MainFrame"/>
     </Grid>
 </Window>

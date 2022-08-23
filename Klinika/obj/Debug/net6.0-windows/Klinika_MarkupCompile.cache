@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 22.08.2022\SIMS\Klinika\App.xaml
-11407045341
+71804135672
 
-3-1233169557
-1942030480316
-MainWindow.xaml;
+23-1785959299
+195967371532
+MainWindow.xaml;ViewManager\DoctorView.xaml;ViewManager\LoginView.xaml;ViewManager\ManagerView.xaml;ViewManager\PharmacistView.xaml;ViewManager\PharmacistWindow.xaml;ViewManager\UserPage.xaml;
 
 False
 

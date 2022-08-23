@@ -11,7 +11,9 @@ namespace Klinika.Service
     public class UserService
     {
         private readonly UserRepository _UserRepo;
+        public User activeUser { get; set; }
 
+        public int shutDownCounter { get; set; }
 
         public UserService(UserRepository userRepository)
         {
@@ -30,6 +32,27 @@ namespace Klinika.Service
         public void DeleteUser(User user) => _UserRepo.Delete(user);
 
 
+
+        public bool LoginValidation(string email , string password)
+        {
+            User user = GetUserByEmail(email);
+            if (user == null)
+            {
+                shutDownCounter++;
+                return false;
+            }
+            
+            if (user.password.Equals(password) && user!=null)
+              {
+                    activeUser = user;
+                    shutDownCounter = 0;
+                    return true;              
+              }
+
+            shutDownCounter++;
+
+            return false;
+        }
 
 
     }
