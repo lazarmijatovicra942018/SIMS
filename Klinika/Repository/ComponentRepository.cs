@@ -8,7 +8,7 @@ using klinika.Model;
 
 namespace Klinika.Repository
 {
-    internal class ComponentRepository : GenericRepository<Component>
+    public class ComponentRepository : GenericRepository<Component>
     {
         public Component GetByName(string name)
         {

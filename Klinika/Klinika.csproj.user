@@ -7,7 +7,45 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ViewManager\DoctorView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\LoginView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\ManagerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\PharmacistView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\PharmacistWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\UserPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\DoctorView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\LoginView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\ManagerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\PharmacistView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\PharmacistWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\UserPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

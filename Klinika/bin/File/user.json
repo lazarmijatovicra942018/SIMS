@@ -1,0 +1,13 @@
+[
+    {
+        "jmbg":"132344343",
+        "email": "pera@gmail.com",
+        "password": "pera",
+        "name" : "pera",
+        "phoneNumber" : "555555",
+        "userType" : 1,
+        "isBaned" : false
+
+}
+
+]
