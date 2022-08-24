@@ -1,0 +1,29 @@
+[
+    {
+        "id":"1s3ed",
+        "name":"Brufen",
+        "manufactur":"Hemofarm",
+        "components":{"Alkohol":{"componentName":"Alkohol", "componentDescription":"spiritus 70% alkohol"},
+                      "Hidrogen":{"componentName":"Hidrogen", "componentDescription":"H2O2"}},
+        "quantity" : 30,
+        "verification" : true,
+        "isDeleted" : false ,
+        "price" : 600
+
+    },
+    {
+        "id":"1s3edsssd",
+        "name":"Cspirin",
+        "manufactur":"Hemofarm",
+        "components":{"Acetil-salicil":{"componentName":"Acetil-salicil", "componentDescription":"kiselina"},
+                      "Hidrogen":{"componentName":"Hidrogen", "componentDescription":"H2O2"}},
+        "quantity" : 50,
+        "verification" : true,
+        "isDeleted" : false,
+        "price" : 500
+    }
+
+
+
+
+]

@@ -1,6 +1,7 @@
 ﻿using klinika.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,11 @@ namespace Klinika.Repository
         public MedicineRepository()
         {
             filePath = "medicine.json";
+        }
+
+        internal ObservableCollection<Medicine> PutListInObservableCollection(bool v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

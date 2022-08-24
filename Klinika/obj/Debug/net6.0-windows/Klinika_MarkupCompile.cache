@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 22.08.2022\SIMS\Klinika\obj\Debug\net6.0-windows\
+C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\
 Klinika
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 22.08.2022\SIMS\Klinika\App.xaml
-71804135672
+C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\App.xaml
+9607756804
 
-23-1785959299
+25827605827
 195967371532
-MainWindow.xaml;ViewManager\DoctorView.xaml;ViewManager\LoginView.xaml;ViewManager\ManagerView.xaml;ViewManager\PharmacistView.xaml;ViewManager\PharmacistWindow.xaml;ViewManager\UserPage.xaml;
+MainWindow.xaml;ViewManager\DoctorView.xaml;ViewManager\DoctorWindow.xaml;ViewManager\ManagerView.xaml;ViewManager\ManagerWindow.xaml;ViewManager\PharmacistView.xaml;ViewManager\PharmacistWindow.xaml;ViewManager\UserPage.xaml;ViewManager\ValidationMedicinePage.xaml;
 
 False
 

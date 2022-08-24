@@ -2,9 +2,11 @@
 using Klinika.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Klinika.Service
 {
@@ -29,5 +31,8 @@ namespace Klinika.Service
         public void SaveNewMedicine(Medicine medicine) => _MedicineRepo.SaveNewItem(medicine);
 
         public void DeleteMedicin(Medicine medicine) => _MedicineRepo.Delete(medicine);
+
+
+        public ObservableCollection<Medicine> PutListInObservableCollection(List<Medicine> medicines) => _MedicineRepo.PutListInObservableCollection(medicines);
     }
 }

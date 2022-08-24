@@ -8,7 +8,54 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="UserPage">
 
-    <Grid Background="White">
-        
+    <Grid Background="#F7FF93" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="2">
+
+
+            <DataGrid Background="#F7FF93"  x:Name="dataGridMedicine" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
+                      SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Center" 
+                      Height="130" Margin="10, 30, 10, 100" VerticalAlignment="Center" SelectionChanged="dataGridSale_SelectionChanged" >
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn  Header="Id" Binding="{Binding id}" Width="100"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="100"/>
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}" Width="100"/>
+                    <DataGridTextColumn Header="Manufactur" Binding="{Binding manufactur}" Width="100"/>
+                    <DataGridTextColumn Header="Price" Binding="{Binding price}" Width="100"/>
+
+
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Row="1">
+
+            <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                <ComboBox SelectionChanged="ChangedSort" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="sorter" >
+                    <ComboBoxItem Content="imenu leka" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ComboBoxItem Content="ceni" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ComboBoxItem Content="preostaloj kolicini u magacinu" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                </ComboBox>
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="0">
+
+            <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+
+
+                <TextBlock FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="30,20,0,0"  FontSize="20"><Run Text=": Sortiranje po"/></TextBlock>
+
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </Page>

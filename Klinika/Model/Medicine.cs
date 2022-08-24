@@ -12,18 +12,19 @@ namespace klinika.Model
         public string id { get; set; }
 
         public string name { get; set; }
-
-        public string passwor { get; set; }
-
-        public string manufacture { get; set; }
+   
+        public string manufactur { get; set; }
 
         public IDictionary<string, Component> components { get; set; }
 
-        public int count { get; set; }
+        public int quantity { get; set; }
+
+        public int price { get; set; }
+
 
         public bool verification { get; set; }
 
-        public string isDeleted { get; set; }
+        public bool isDeleted { get; set; }
 
 
 

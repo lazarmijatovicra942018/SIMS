@@ -29,6 +29,13 @@ namespace Klinika.Service
 
         public void SaveNewUser(User user) => _UserRepo.SaveNewItem(user);
 
+        public void LogOut()
+        {
+            activeUser = null;
+            shutDownCounter = 0;
+
+        }
+
         public void DeleteUser(User user) => _UserRepo.Delete(user);
 
 
