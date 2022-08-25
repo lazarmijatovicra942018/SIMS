@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,11 +25,11 @@ namespace Klinika.ViewManager
     public partial class UserPage : Page
     {
 
-        public static ObservableCollection<Medicine> medicines { get; set;  }
+        public static ObservableCollection<Medicine> medicines { get; set; }
 
-        private static List<Medicine> medicineList { get; set; }
+        private List<Medicine> medicineList { get; set; }
 
-        private MedicineController _medicineController;
+        private static MedicineController _medicineController;
 
         public UserPage()
         {
@@ -39,18 +40,18 @@ namespace Klinika.ViewManager
 
 
             this.DataContext = this;
-           
+
             medicineList = _medicineController.GetAllMedicines();
 
-            if(medicineList == null)
+            if (medicineList == null)
             {
                 medicineList = new List<Medicine>();
             }
-           
+
             medicines = _medicineController.PutListInObservableCollection(medicineList);
             dataGridMedicine.ItemsSource = medicines;
 
-          
+
 
 
         }
@@ -62,24 +63,80 @@ namespace Klinika.ViewManager
 
         private void ChangedSort(object sender, SelectionChangedEventArgs e)
         {
-            if(sorter.SelectedIndex == 0)
-            {
-                  medicineList.Sort((a, b) => a.name.CompareTo(b.name));
-                  dataGridMedicine.ItemsSource = new ObservableCollection<Medicine>(medicineList) ;
-            }else if (sorter.SelectedIndex == 1)
-            {
 
-                 medicineList.Sort((a, b) => a.price.CompareTo(b.price));
-                 dataGridMedicine.ItemsSource = dataGridMedicine.ItemsSource = new ObservableCollection<Medicine>(medicineList);
+            medicineList = _medicineController.MedicineListSorter(sorter.SelectedIndex, medicineList);
+            dataGridMedicine.ItemsSource = new ObservableCollection<Medicine>(medicineList);
+
+
+        }
+
+        private void FilterCombo(object sender, SelectionChangedEventArgs e)
+        {
+            searchBox.Clear();
+            searchMinBox.Clear();
+            searchMaxBox.Clear();
+
+
+            if (filter.SelectedIndex == 0)
+            {
+                MinTextBlock.Visibility = Visibility.Visible;
+                MaxTextBlock.Visibility = Visibility.Visible;
+
+                searchMaxBox.Visibility = Visibility.Visible;
+                searchMinBox.Visibility = Visibility.Visible;
+
+
             }
-            else if (sorter.SelectedIndex == 2)
+            else
             {
+                MinTextBlock.Visibility = Visibility.Hidden;
+                MaxTextBlock.Visibility = Visibility.Hidden;
 
-                medicineList.Sort((a, b) => a.quantity.CompareTo(b.quantity));
-                dataGridMedicine.ItemsSource = dataGridMedicine.ItemsSource = new ObservableCollection<Medicine>(medicineList);
+                searchMaxBox.Visibility = Visibility.Hidden;
+                searchMinBox.Visibility = Visibility.Hidden;
+
+
+
+            }
+
+            if (filter.SelectedIndex > 0)
+            {
+                searchBox.Visibility = Visibility.Visible;
+
+
+            }
+            else
+            {
+                searchBox.Visibility = Visibility.Hidden;
             }
 
 
+
+
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+
+            if (searchBox.Text != "")
+            {
+
+
+                dataGridMedicine.ItemsSource = _medicineController.SearchBy(filter.SelectedIndex, medicineList, searchBox.Text);
+
+
+            }
+            else if (((searchMinBox.Text + searchMaxBox.Text) != "") && Regex.IsMatch((searchMinBox.Text + searchMaxBox.Text), @"^\d+$") ){
+                dataGridMedicine.ItemsSource = _medicineController.SearchByPrice(medicineList, searchMinBox.Text, searchMaxBox.Text);
+
+            }
+            else
+            {
+                dataGridMedicine.ItemsSource = medicines;
+
+            }
         }
     }
 }

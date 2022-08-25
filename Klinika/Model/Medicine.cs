@@ -19,7 +19,7 @@ namespace klinika.Model
 
         public int quantity { get; set; }
 
-        public int price { get; set; }
+        public double price { get; set; }
 
 
         public bool verification { get; set; }
