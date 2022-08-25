@@ -28,7 +28,7 @@ namespace Klinika.Controller
 
         public bool LoginValidationByEmailAndPassword(string email, string password) => _UserService.LoginValidation(email, password);
 
-
+        public void LogOut() => _UserService.LogOut();
 
     }
 }

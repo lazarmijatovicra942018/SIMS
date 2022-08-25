@@ -7,13 +7,19 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ViewManager\ComponentsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ViewManager\DoctorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ViewManager\LoginView.xaml.cs">
+    <Compile Update="ViewManager\DoctorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="ViewManager\ManagerView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\ManagerWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="ViewManager\PharmacistView.xaml.cs">
@@ -25,18 +31,27 @@
     <Compile Update="ViewManager\UserPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ViewManager\ValidationMedicinePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="ViewManager\ComponentsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="ViewManager\DoctorView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ViewManager\LoginView.xaml">
+    <Page Update="ViewManager\DoctorWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\ManagerView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\ManagerWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\PharmacistView.xaml">
@@ -46,6 +61,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\UserPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\ValidationMedicinePage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

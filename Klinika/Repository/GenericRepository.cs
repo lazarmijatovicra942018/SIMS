@@ -1,19 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
 
 using System.Threading.Tasks;
+using klinika.Model;
 using Newtonsoft.Json;
 
 namespace Klinika.Repository
 {
-    public class GenericRepository<T>  where T : class
+    public class GenericRepository<T> where T : class
     {
+
+   
+
+
 
         public  String filePath { get; set; }
 
+
+       
+
+        public  ObservableCollection<T> PutListInObservableCollection(List<T> entities)
+        {
+            ObservableCollection<T>  collection = new ObservableCollection<T>();
+
+            foreach(T entity in entities)
+            {
+                collection.Add(entity);
+            }
+            
+            return collection;
+        }
 
 
         public void Delete(T entity)
