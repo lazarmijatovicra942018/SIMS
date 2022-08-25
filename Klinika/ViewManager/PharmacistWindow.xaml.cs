@@ -48,6 +48,7 @@ namespace Klinika.ViewManager
 
         }
 
+      
         private void SviLekovi_Click(object sender, RoutedEventArgs e)
         {
             Sadrzaj.NavigationService.Navigate(new UserPage());

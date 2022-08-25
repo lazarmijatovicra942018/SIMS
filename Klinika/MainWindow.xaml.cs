@@ -80,7 +80,7 @@ namespace Klinika
             pharmacistView.Show();
             this.Hide();
 
-            LoginFunction();   
+      //      LoginFunction();   
         }
     }
 }

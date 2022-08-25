@@ -15,7 +15,8 @@
 
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
-
+            <RowDefinition Height="70" />
+            
         </Grid.RowDefinitions>
         <Grid Grid.Row="2">
             
@@ -23,7 +24,7 @@
 
             <DataGrid Background="#F7FF93"  x:Name="dataGridMedicine" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
                       SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                      Height="130" Margin="75,40,0,0" VerticalAlignment="Top" SelectionChanged="dataGridSale_SelectionChanged" Grid.ColumnSpan="2" >
+                      Height="130" Margin="75,40,0,0" VerticalAlignment="Top" SelectionChanged="dataGridSMedicine_SelectionChanged" Grid.ColumnSpan="2" >
 
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Id" Binding="{Binding id}" Width="100"/>
@@ -84,6 +85,17 @@
 
             </StackPanel>
         </Grid>
+        <Grid Grid.Row="3">
+           <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                
+                <Button  ToolTip="Prikaz Sastojaka leka " Content="Sastojci" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="Sastojci" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="Sastojci_Click" />
+
+
+
+        </StackPanel>
+
+        </Grid>
+
 
     </Grid>
 </Page>

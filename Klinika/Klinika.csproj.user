@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ViewManager\ComponentsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ViewManager\DoctorView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,6 +37,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\ComponentsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\DoctorView.xaml">

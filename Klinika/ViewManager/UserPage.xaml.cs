@@ -138,5 +138,21 @@ namespace Klinika.ViewManager
 
             }
         }
+
+        private void dataGridSMedicine_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dataGridMedicine.SelectedItem != null)
+            {
+                Sastojci.IsEnabled = true;
+            }
+        }
+        private void Sastojci_Click(object sender, RoutedEventArgs e)
+        {
+            Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
+            ComponentsWindow componentsWindow = new ComponentsWindow(selectedMedicine);
+            componentsWindow.Show();
+           
+
+        }
     }
 }
