@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace klinika.Model
 {
-    public class Medicine 
+    public class Medicine
     {
         public string id { get; set; }
 
         public string name { get; set; }
-   
+
         public string manufactur { get; set; }
 
         public IDictionary<string, Component> components { get; set; }
@@ -22,10 +22,18 @@ namespace klinika.Model
         public double price { get; set; }
 
 
-        public bool verification { get; set; }
 
-        public bool isDeleted { get; set; }
+     
+        public bool isDeclined {get; set;}
 
+        public bool isApproved { get; set; }
+
+
+        public List<User> ApprovedByUsers { get; set; } 
+
+        public User DeclinedByUsers { get; set; }
+        
+        public string DeclineDescription { get; set; }
 
 
 

@@ -11,7 +11,9 @@ namespace Klinika.Service
     public class UserService
     {
         private readonly UserRepository _UserRepo;
-        public User activeUser { get; set; }
+        public   User activeUser { 
+            get ; 
+            set; }
 
         public int shutDownCounter { get; set; }
 
@@ -51,6 +53,7 @@ namespace Klinika.Service
             
             if (user.password.Equals(password) && user!=null)
               {
+                    
                     activeUser = user;
                     shutDownCounter = 0;
                     return true;              

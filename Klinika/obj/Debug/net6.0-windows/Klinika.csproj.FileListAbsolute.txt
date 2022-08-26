@@ -36,7 +36,6 @@ C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 22.08.2022\SIMS\Klinika\obj\Debug\net6.0-
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\Klinika.csproj.AssemblyReference.cache
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\DoctorView.g.cs
-C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\ManagerView.g.cs
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\ManagerWindow.g.cs
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\PharmacistView.g.cs
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\PharmacistWindow.g.cs
@@ -55,7 +54,6 @@ C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\bin\Debug\net6.0-window
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\MainWindow.baml
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\DoctorView.baml
-C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\ManagerView.baml
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\ManagerWindow.baml
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\PharmacistView.baml
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\PharmacistWindow.baml

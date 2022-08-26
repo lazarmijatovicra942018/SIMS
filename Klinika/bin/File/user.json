@@ -5,9 +5,63 @@
         "password": "pera",
         "name" : "pera",
         "phoneNumber" : "555555",
+        "userType" : 0,
+        "isBaned" : false
+    },
+
+    {
+        "jmbg":"f1",
+        "email": "farmaceut@gmail.com",
+        "password": "farmaceut",
+        "name" : "Filip",
+        "phoneNumber" : "555335",
+        "userType" : 0,
+        "isBaned" : false
+    },
+    {
+        "jmbg":"f2",
+        "email": "farmaceut2@gmail.com",
+        "password": "farmaceut2",
+        "name" : "Fedja",
+        "phoneNumber" : "555345",
+        "userType" : 0,
+        "isBaned" : false
+    },
+    {
+        "jmbg":"m1",
+        "email": "manager@gmail.com",
+        "password": "manager",
+        "name" : "Milan",
+        "phoneNumber" : "552235",
         "userType" : 1,
         "isBaned" : false
-
-}
+    },
+    {
+        "jmbg":"m2",
+        "email": "manager2@gmail.com",
+        "password": "manager2",
+        "name" : "Milos",
+        "phoneNumber" : "534235",
+        "userType" : 1,
+        "isBaned" : false
+    },
+    {
+        "jmbg":"d1",
+        "email": "doktor@gmail.com",
+        "password": "doktor",
+        "name" : "Darko",
+        "phoneNumber" : "55233",
+        "userType" : 2,
+        "isBaned" : false
+    },
+    {
+        "jmbg":"d2",
+        "email": "doktor@gmail.com",
+        "password": "doktor",
+        "name" : "Dusko",
+        "phoneNumber" : "53235",
+        "userType" : 2,
+        "isBaned" : false
+    }
 
 ]

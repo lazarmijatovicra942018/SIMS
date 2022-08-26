@@ -16,9 +16,6 @@
     <Compile Update="ViewManager\DoctorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ViewManager\ManagerView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="ViewManager\ManagerWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -46,9 +43,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\DoctorWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="ViewManager\ManagerView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\ManagerWindow.xaml">

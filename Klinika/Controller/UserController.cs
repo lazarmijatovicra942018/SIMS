@@ -16,12 +16,15 @@ namespace Klinika.Controller
         public UserController(UserService userService)
         {
             _UserService = userService;
-            User user = _UserService.activeUser;
-
+           
 
         }
 
-        public User GetActiveUser => _UserService.activeUser;
+       
+
+        
+        public  User GetActiveUser => _UserService.activeUser;
+
         public int GetShutDownCounter => _UserService.shutDownCounter;
 
 
@@ -29,6 +32,8 @@ namespace Klinika.Controller
         public bool LoginValidationByEmailAndPassword(string email, string password) => _UserService.LoginValidation(email, password);
 
         public void LogOut() => _UserService.LogOut();
+
+       
 
     }
 }

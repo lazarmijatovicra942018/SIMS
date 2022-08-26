@@ -81,7 +81,7 @@ namespace Klinika.Repository
 
         public void Serialize(List<T> parameter)
         {
-            using (StreamWriter file = File.CreateText(@"..\\..\\Files\\" + filePath))
+            using (StreamWriter file = File.CreateText(@"..\\..\\File\\" + filePath))
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, parameter);
