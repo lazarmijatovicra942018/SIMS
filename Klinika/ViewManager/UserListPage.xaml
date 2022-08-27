@@ -1,0 +1,77 @@
+﻿<Page x:Class="Klinika.ViewManager.UserListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Klinika.ViewManager"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserListPage">
+
+    <Grid Background="#F7FF93" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+
+            <RowDefinition Height="70" />
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+
+            <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+
+
+                <TextBlock FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="30,20,0,0"  FontSize="20"><Run Text=": Sortiranje po"/></TextBlock>
+
+                <TextBlock FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="80,20,0,0"  FontSize="20"><Run Text=": Filtrirati "/></TextBlock>
+
+
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+                <ComboBox SelectionChanged="ChangedSort" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="sortCombo" >
+                    <ComboBoxItem Content="imenu " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ComboBoxItem Content="prezimenu" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                </ComboBox>
+                <ComboBox SelectionChanged="ChangedFilter" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="filterCombo" >
+                    <ComboBoxItem Content="Farmaceut" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ComboBoxItem Content="Menadzer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ComboBoxItem Content="Doktor " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ComboBoxItem Content="Svi korisnici " HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                </ComboBox>
+
+
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+
+
+
+            <DataGrid Background="#F7FF93"  x:Name="dataGridMedicine" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
+                      SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
+                      Height="145" Margin="5,20,0,0" VerticalAlignment="Top" SelectionChanged="dataGridUsers_SelectionChanged" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+              ScrollViewer.HorizontalScrollBarVisibility="Hidden"  >
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn  Header="Name" Binding="{Binding name}" Width="85"/>
+                    <DataGridTextColumn Header="Last name" Binding="{Binding lastName}" Width="85"/>
+                    <DataGridTextColumn Header="Jmbg" Binding="{Binding jmbg}" Width="70"/>
+                    <DataGridTextColumn Header="E-mail" Binding="{Binding email}" Width="135"/>
+                    <DataGridTextColumn Header="Phone number" Binding="{Binding phoneNumber}" Width="85"/>
+                    <DataGridTextColumn Header="User type" Binding="{Binding userType}" Width="85"/>
+                    <DataGridTextColumn Header="Baned" Binding="{Binding isBaned}" Width="70"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+        
+    </Grid>
+</Page>

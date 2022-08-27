@@ -2,6 +2,7 @@
 using Klinika.Repository;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +63,48 @@ namespace Klinika.Service
             shutDownCounter++;
 
             return false;
+        }
+
+        public ObservableCollection<User> GetAllUsersInObservableCollection()
+        {
+            ObservableCollection<User> users = new ObservableCollection<User>();
+
+            users = _UserRepo.PutListInObservableCollection(GetAllUsers());
+
+            return users;
+        }
+
+        public ObservableCollection<User> FilteringUsers( int userTypeIndex)
+        {
+            List<User> users = GetAllUsers();
+            ObservableCollection<User> filteredUsers = _UserRepo.PutListInObservableCollection(users);
+
+            if(userTypeIndex== 3) { return filteredUsers; }
+            
+            foreach(User user in users)
+            {
+                if((int)user.userType != userTypeIndex)
+                {
+                    filteredUsers.Remove(user);
+                }
+            }
+
+            return filteredUsers;
+        }
+
+        public List<User> UserSorting(int sortChoise, List<User> users)
+        {
+            if (sortChoise == 0)
+            {
+                users.Sort((a,b) => a.name.CompareTo(b.name));
+            }else if(sortChoise == 1)
+            {
+                users.Sort((a, b) => a.lastName.CompareTo(b.lastName));
+
+
+            }
+
+            return users;
         }
 
 

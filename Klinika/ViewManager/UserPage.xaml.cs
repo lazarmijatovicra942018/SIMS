@@ -56,10 +56,7 @@ namespace Klinika.ViewManager
 
         }
 
-        private void dataGridSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
+       
 
         private void ChangedSort(object sender, SelectionChangedEventArgs e)
         {

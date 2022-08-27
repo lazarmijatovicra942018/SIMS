@@ -19,7 +19,8 @@
         <Grid Grid.Row="1">
             <DataGrid Background="#F7FF93"  x:Name="dataGridComponents" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
                       SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                      Height="130" Margin="75,40,0,0" VerticalAlignment="Top"  >
+                      Height="130" Margin="75,40,0,0" VerticalAlignment="Top"    ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+              ScrollViewer.HorizontalScrollBarVisibility="Hidden">
 
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="ComponentName" Binding="{Binding componentName}" Width="120"/>

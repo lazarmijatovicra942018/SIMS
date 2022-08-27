@@ -10,15 +10,21 @@ namespace Klinika.Model
     public class User 
     {
 
-        public string jmbg { get; set; }
-
-        public string email { get; set; }
-
-        public string password { get; set; }
 
         public string name { get; set; }
 
         public string lastName { get; set; }
+
+
+        public string password { get; set; }
+
+
+        public string jmbg { get; set; }
+
+        public string email { get; set; }
+
+      
+      
 
         public string phoneNumber { get; set; }
 
@@ -26,6 +32,20 @@ namespace Klinika.Model
 
         public bool isBaned { get; set; }
 
+        public User(string name, string lastName, string password, string jmbg, string email, string phoneNumber, UserType userType)
+        {
+            this.name = name;
+            this.lastName = lastName;
+            this.password = password;
+            this.jmbg = jmbg;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.userType = userType;
+            this.isBaned = false;
+         
+        }
+
+        override
         public string ToString()
         {
             if (userType == UserType.Pharmacist) { return "Farmaceut  " + name + " " + lastName; ; };

@@ -26,7 +26,8 @@
 
             <DataGrid Background="#F7FF93"  x:Name="dataGridMedicine" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
                       SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                      Height="140" Margin="10,20,0,0" VerticalAlignment="Top" SelectionChanged="dataGridSMedicine_SelectionChanged" Grid.ColumnSpan="2" >
+                      Height="140" Margin="10,20,0,0" VerticalAlignment="Top" SelectionChanged="dataGridSMedicine_SelectionChanged" Grid.ColumnSpan="2"  ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+              ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
 
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Id" Binding="{Binding id}" Width="100"/>
@@ -34,7 +35,7 @@
                     <DataGridTextColumn Header="Quantity" Binding="{Binding quantity}" Width="100"/>
                     <DataGridTextColumn Header="Manufactur" Binding="{Binding manufactur}" Width="100"/>
                     <DataGridTextColumn Header="Price" Binding="{Binding price}" Width="100"/>
-                    <DataGridTextColumn Header="Odobren" Binding="{Binding isApproved}" Width="100"/>
+                    <DataGridTextColumn Header="Approved" Binding="{Binding isApproved}" Width="100"/>
 
 
                 </DataGrid.Columns>

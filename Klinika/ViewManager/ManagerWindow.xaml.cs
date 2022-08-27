@@ -29,6 +29,11 @@ namespace Klinika.ViewManager
 
             var app = Application.Current as App;
             _userController = app.UserController;
+
+            ActiveUserLabel.Text = (_userController.GetActiveUser?? new Model.User()).ToString() ?? " ";
+
+
+
         }
 
         private void Odjava_Click(object sender, RoutedEventArgs e)
@@ -39,12 +44,7 @@ namespace Klinika.ViewManager
             this.Hide();
         }
 
-        private void Validacija_Click(object sender, RoutedEventArgs e)
-        {
-            Sadrzaj.NavigationService.Navigate(new ValidationMedicinePage());
-
-
-        }
+     
 
 
        
@@ -52,6 +52,18 @@ namespace Klinika.ViewManager
         private void OdobreniLekovi_Click(object sender, RoutedEventArgs e)
         {
             Sadrzaj.NavigationService.Navigate(new UserPage());
+        }
+
+        private void Registracija_Click(object sender, RoutedEventArgs e)
+        {
+            Sadrzaj.NavigationService.Navigate(new RegisterUserPage());
+     
+        }
+
+        private void AllUsers_Click(object sender, RoutedEventArgs e)
+        {
+            Sadrzaj.NavigationService.Navigate(new UserListPage());
+
         }
     }
 }

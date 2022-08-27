@@ -76,8 +76,8 @@ namespace Klinika
 
         private void ButtonLogin(object sender, RoutedEventArgs e)
         {
-          
 
+       
             LoginFunction();   
         }
     }
