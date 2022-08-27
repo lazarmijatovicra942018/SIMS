@@ -19,10 +19,24 @@ namespace Klinika.Repository
 
                 if (medicine.id.Equals(id)) { return medicine; }
             }
-            return null;
+            return null ;
 
 
 
+        }
+
+        public Medicine FindMedicineInCollectionById(string medicineId, ObservableCollection<Medicine> medicines)
+        {
+            Medicine medicineWithId = new Medicine();
+            foreach(Medicine medicine in medicines)
+            {
+                if (medicine.id.Equals(medicineId))
+                {
+                    medicineWithId = medicine;
+                    break;
+                }
+            }
+            return medicineWithId;
         }
 
 
@@ -35,5 +49,8 @@ namespace Klinika.Repository
         {
             throw new NotImplementedException();
         }
+        
+        
+    
     }
 }

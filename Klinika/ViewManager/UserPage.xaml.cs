@@ -41,7 +41,7 @@ namespace Klinika.ViewManager
 
             this.DataContext = this;
 
-            medicineList = _medicineController.GetAllMedicines();
+            medicineList = _medicineController.GetAllApprovedMedication();
 
             if (medicineList == null)
             {

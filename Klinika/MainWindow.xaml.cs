@@ -76,11 +76,9 @@ namespace Klinika
 
         private void ButtonLogin(object sender, RoutedEventArgs e)
         {
-            PharmacistWindow pharmacistView = new PharmacistWindow();
-            pharmacistView.Show();
-            this.Hide();
+          
 
-      //      LoginFunction();   
+            LoginFunction();   
         }
     }
 }

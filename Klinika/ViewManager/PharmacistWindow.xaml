@@ -14,6 +14,7 @@
 
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#069A8E">
+            <TextBlock  x:Name="ActiveUserLabel" FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="45,0,0,0"  FontSize="25"><Run Text=""/></TextBlock>
 
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
                          <Button FontFamily="Candara" Content="Odjavi se"  ToolTip=" Odjavljivanje sa naloga " Margin="10,0,0,0" Width="100" Height="30"  Background="#F8CB2E"  FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="Odjava_Click" />
@@ -27,8 +28,9 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Background="#005555">
                 <StackPanel FlowDirection="LeftToRight" Orientation="Vertical">
-                    <Button Content="Svi lekovi" ToolTip=" Prikaz novih obaveštenja " Background="#F8CB2E"   FontFamily="Candara" Margin="5,30,5,5" Width="125"     Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click ="SviLekovi_Click" />
+                    <Button Content="Odobreni lekovi" ToolTip=" Prikaz odobrenih lekova " Background="#F8CB2E"   FontFamily="Candara" Margin="5,30,5,5" Width="125"     Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click ="OdobreniLekovi_Click" />
                     <Button Content="Validacija lekova" ToolTip=" Prikaz   lekova za odobravanje ili odbijanje ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="Validacija_Click"/>
+                    <Button Content="Svi lekovi" ToolTip=" Prikaz   odobrenih i odbijenih lekova ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="SviLekovi_Click"/>
 
                 </StackPanel>
             </Grid>
