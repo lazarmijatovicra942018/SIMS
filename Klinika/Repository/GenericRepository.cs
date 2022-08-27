@@ -85,6 +85,7 @@ namespace Klinika.Repository
             {
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(file, parameter);
+
             }
         }
 

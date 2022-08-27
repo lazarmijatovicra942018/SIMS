@@ -72,3 +72,5 @@ C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-window
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\ValidationMedicinePage.baml
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\ComponentsWindow.g.cs
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\ComponentsWindow.baml
+C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\AllMedicinePage.g.cs
+C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\AllMedicinePage.baml

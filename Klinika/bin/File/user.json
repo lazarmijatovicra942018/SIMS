@@ -4,6 +4,7 @@
         "email": "pera@gmail.com",
         "password": "pera",
         "name" : "pera",
+        "lastName" : "peric",
         "phoneNumber" : "555555",
         "userType" : 0,
         "isBaned" : false
@@ -14,6 +15,7 @@
         "email": "farmaceut@gmail.com",
         "password": "farmaceut",
         "name" : "Filip",
+        "lastName" : "Mijatovic",
         "phoneNumber" : "555335",
         "userType" : 0,
         "isBaned" : false
@@ -23,6 +25,8 @@
         "email": "farmaceut2@gmail.com",
         "password": "farmaceut2",
         "name" : "Fedja",
+        "lastName" : "Fedjic",
+        
         "phoneNumber" : "555345",
         "userType" : 0,
         "isBaned" : false
@@ -32,6 +36,8 @@
         "email": "manager@gmail.com",
         "password": "manager",
         "name" : "Milan",
+        "lastName" : "Milutinovic",
+        
         "phoneNumber" : "552235",
         "userType" : 1,
         "isBaned" : false
@@ -41,6 +47,8 @@
         "email": "manager2@gmail.com",
         "password": "manager2",
         "name" : "Milos",
+        "lastName" : "Milosevic",
+        
         "phoneNumber" : "534235",
         "userType" : 1,
         "isBaned" : false
@@ -50,6 +58,8 @@
         "email": "doktor@gmail.com",
         "password": "doktor",
         "name" : "Darko",
+        "lastName" : "Daric",
+        
         "phoneNumber" : "55233",
         "userType" : 2,
         "isBaned" : false
@@ -59,6 +69,8 @@
         "email": "doktor@gmail.com",
         "password": "doktor",
         "name" : "Dusko",
+        "lastName" : "Dusic",
+        
         "phoneNumber" : "53235",
         "userType" : 2,
         "isBaned" : false

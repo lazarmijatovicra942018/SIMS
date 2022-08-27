@@ -19,6 +19,8 @@ namespace Klinika.Service
 
         private UserController _userController;
 
+        
+
 
 
         public MedicineService(MedicineRepository medicineRepository)
@@ -370,6 +372,86 @@ namespace Klinika.Service
 
 
 
+        public ObservableCollection<Medicine> GetAllApprovedAndDeclinedMedicines()
+        {
+            ObservableCollection<Medicine> allMedicines = new ObservableCollection<Medicine>();
+            allMedicines = _MedicineRepo.PutListInObservableCollection(GetAllMedication());
+            ObservableCollection<Medicine> approvedAndDeckinedMedicines = new ObservableCollection<Medicine>();
+
+
+            foreach (Medicine medicine in allMedicines)
+            {
+                if (medicine.isDeclined || medicine.isApproved)
+                {
+                    approvedAndDeckinedMedicines.Add(medicine);
+                }
+
+            }
+
+
+
+
+            return approvedAndDeckinedMedicines;
+
+
+
+        }
+
+       
+            public ObservableCollection<Medicine> GetAllApprovedMedicines()
+            {
+                ObservableCollection<Medicine> allMedicines = new ObservableCollection<Medicine>();
+                allMedicines = _MedicineRepo.PutListInObservableCollection(GetAllMedication());
+                ObservableCollection<Medicine> approvedMedicines = new ObservableCollection<Medicine>();
+
+
+                foreach (Medicine medicine in allMedicines)
+                {
+                    if (medicine.isApproved)
+                    {
+                        approvedMedicines.Add(medicine);
+                    }
+
+                }
+
+
+
+
+                return approvedMedicines;
+
+
+            }
+
+
+            public ObservableCollection<Medicine> GetAllADeclinedMedicines()
+            {
+                ObservableCollection<Medicine> allMedicines = new ObservableCollection<Medicine>();
+                allMedicines = _MedicineRepo.PutListInObservableCollection(GetAllMedication());
+                ObservableCollection<Medicine> decklinedMedicines = new ObservableCollection<Medicine>();
+
+
+                foreach (Medicine medicine in allMedicines)
+                {
+                    if (medicine.isDeclined )
+                    {
+                        decklinedMedicines.Add(medicine);
+                    }
+
+                }
+
+
+
+
+                return decklinedMedicines;
+
+
 
     }
+
+
+
+    
+
+    }
+
 }

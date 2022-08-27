@@ -52,6 +52,11 @@ namespace Klinika.Controller
         public void MedicineDecline(Medicine medicineForDecline, User activeUser, string description) =>  _MedicineService.MedicineDecline( medicineForDecline,  activeUser, description);
 
 
+        public ObservableCollection<Medicine> GetAllApprovedAndDeclinedMedicines() => _MedicineService.GetAllApprovedAndDeclinedMedicines();
+
+        public ObservableCollection<Medicine> GetAllApprovedMedicines() => _MedicineService.GetAllApprovedMedicines();
+
+        public ObservableCollection<Medicine> GetAllADeclinedMedicines() => _MedicineService.GetAllADeclinedMedicines();
     }
 
 

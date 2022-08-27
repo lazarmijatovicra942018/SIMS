@@ -50,7 +50,7 @@ namespace Klinika.ViewManager
             }
 
             medicines = _medicineController.PutListInObservableCollection(medicineList);
-            dataGridMedicine.ItemsSource =medicineList;
+            dataGridMedicine.ItemsSource =medicines;
 
 
 

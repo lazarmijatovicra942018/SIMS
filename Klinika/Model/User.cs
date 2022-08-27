@@ -18,10 +18,23 @@ namespace Klinika.Model
 
         public string name { get; set; }
 
+        public string lastName { get; set; }
+
         public string phoneNumber { get; set; }
 
         public UserType userType { get; set; }
 
         public bool isBaned { get; set; }
+
+        public string ToString()
+        {
+            if (userType == UserType.Pharmacist) { return "Farmaceut  " + name + " " + lastName; ; };
+            if (userType == UserType.Doctor) { return "Doktor  " + name + " " + lastName; };
+            if (userType == UserType.Manager) { return "Upravnik  " + name + " " + lastName; };
+            return "";
+
+
+        }
+
     }
 }
