@@ -49,8 +49,9 @@ namespace Klinika.Controller
 
         public void MedicineApproval(Medicine medicineForApproval, User user) => _MedicineService.MedicineApproval(medicineForApproval, user);
 
+        public void MedicineDecline(Medicine medicineForDecline, User activeUser, string description) =>  _MedicineService.MedicineDecline( medicineForDecline,  activeUser, description);
 
-       
+
     }
 
 

@@ -275,7 +275,7 @@ namespace Klinika.Service
 
             foreach ( Medicine medicine in clonedMedicinesCollection)
             {
-                if (medicine.isApproved)
+                if (medicine.isApproved || medicine.isDeclined)
                 {
                     medicines.Remove(medicine);
                 }
@@ -313,6 +313,17 @@ namespace Klinika.Service
               
                 medicineForApproval.isApproved = true; }
 
+
+        }
+
+
+
+        public void MedicineDecline(Medicine medicineForDecline , User activeUser , string description)
+        {
+            
+            medicineForDecline.isDeclined = true;
+            medicineForDecline.DeclineDescription = description;
+            medicineForDecline.DeclinedByUsers = activeUser;
 
         }
 

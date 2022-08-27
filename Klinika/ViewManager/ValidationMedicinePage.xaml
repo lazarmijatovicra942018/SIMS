@@ -15,8 +15,10 @@
 
             <RowDefinition Height="50" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="70" />
+            <RowDefinition Height="30" />
 
+            <RowDefinition Height="70" />
+            
         </Grid.RowDefinitions>
         <Grid Grid.Row="2">
 
@@ -24,7 +26,7 @@
 
             <DataGrid Background="#F7FF93"  x:Name="dataGridMedicine" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
                       SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
-                      Height="130" Margin="75,40,0,0" VerticalAlignment="Top" SelectionChanged="dataGridSMedicine_SelectionChanged" Grid.ColumnSpan="2" >
+                      Height="120" Margin="75,40,0,0" VerticalAlignment="Top" SelectionChanged="dataGridSMedicine_SelectionChanged" Grid.ColumnSpan="2" >
 
                 <DataGrid.Columns>
                     <DataGridTextColumn  Header="Id" Binding="{Binding id}" Width="100"/>
@@ -36,6 +38,7 @@
 
                 </DataGrid.Columns>
             </DataGrid>
+
         </Grid>
         <Grid Grid.Row="1">
 
@@ -85,7 +88,10 @@
 
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="3">
+
+        <TextBlock  x:Name="DescriptionLabel" Grid.Row="3" FontFamily="Candara" FontWeight="Bold"  Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Left"    FontSize="20"><Run Text="    Obrazlozenje zasto je lek odbijen :"/></TextBlock>
+
+        <Grid Grid.Row="4">
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
 
                 <Button  ToolTip="Prikaz Sastojaka leka " Content="Sastojci" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="Sastojci" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="Sastojci_Click" />
@@ -93,6 +99,8 @@
 
                 <Button  ToolTip="Odobravanje leka" Content="Odobri" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="Odobravanje" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="Accept_Click" />
 
+                <TextBox x:Name="Description" Grid.Row="0"  Visibility="Hidden" FlowDirection="LeftToRight" VerticalAlignment="Top"  TextAlignment="Left" Margin="30,0,0,0"  Width="200" Height="60"  TextChanged="TextBox_TextChanged"  TextWrapping="Wrap"
+  AcceptsReturn="True"/>
 
 
             </StackPanel>

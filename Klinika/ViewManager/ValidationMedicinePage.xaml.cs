@@ -148,8 +148,16 @@ namespace Klinika.ViewManager
                 Sastojci.IsEnabled = true;
                 Odbijanje.IsEnabled = true;
                 Odobravanje.IsEnabled = true;
+                Description.Visibility = Visibility.Visible;
+                DescriptionLabel.Visibility = Visibility.Visible;
+
             }
+
+
         }
+
+       
+
         private void Sastojci_Click(object sender, RoutedEventArgs e)
         {
             Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
@@ -157,13 +165,32 @@ namespace Klinika.ViewManager
             componentsWindow.Show();
 
 
+            
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
         {
 
+            Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
 
+            _medicineController.MedicineDecline(selectedMedicine, _userController.GetActiveUser, Description.Text.ToString());
+            
+            
+            _medicineController.GetObservableListApprovalPending(medicines);
+
+            _medicineController.SaveChangedMedicine(selectedMedicine);
+
+
+
+            dataGridMedicine.ItemsSource = medicines;
+
+            Description.Clear();
+
+            
         }
+
+
+
 
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
@@ -176,12 +203,12 @@ namespace Klinika.ViewManager
 
             _medicineController.MedicineApproval(selectedMedicine, _userController.GetActiveUser);
 
-               _medicineController.SaveChangedMedicine(selectedMedicine);
+            _medicineController.SaveChangedMedicine(selectedMedicine);
 
 
              _medicineController.GetObservableListApprovalPending(medicines);
              dataGridMedicine.ItemsSource = medicines;
-         
+
             
         }
     }
