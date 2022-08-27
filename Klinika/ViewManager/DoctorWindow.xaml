@@ -14,6 +14,7 @@
 
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#069A8E">
+            <TextBlock  x:Name="ActiveUserLabel" FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="45,0,0,0"  FontSize="25"><Run Text=""/></TextBlock>
 
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
                 <Button FontFamily="Candara" Content="Odjavi se"  ToolTip=" Odjavljivanje sa naloga " Margin="10,0,0,0" Width="100" Height="30"  Background="#F8CB2E"  FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="Odjava_Click" />

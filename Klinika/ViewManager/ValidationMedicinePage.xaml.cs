@@ -57,6 +57,8 @@ namespace Klinika.ViewManager
 
         }
 
+       
+
         private void dataGridSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
