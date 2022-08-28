@@ -43,27 +43,43 @@ namespace Klinika.Service
 
 
 
-        public bool LoginValidation(string email , string password)
+        public string LoginValidation(string email , string password)
         {
-            User user = GetUserByEmail(email);
-            if (user == null)
+            User
+                
+                
+                
+                
+                user = GetUserByEmail(email);
+            
+            
+            if (user == null )
             {
                 shutDownCounter++;
-                return false;
-            }
-            
-            if (user.password.Equals(password) && user!=null)
-              {
+                return "notExist";
+            }else if (user.isBaned)
+            {
+                return "baned";
+            }else if (user.password.Equals(password) && user!=null)
+            {
                     
                     activeUser = user;
                     shutDownCounter = 0;
-                    return true;              
-              }
+                    return "logged";
+            }
+            else {
 
             shutDownCounter++;
 
-            return false;
+             return "wrongPassword"; 
+            }
+
+
+            
+            
         }
+
+        
 
         public ObservableCollection<User> GetAllUsersInObservableCollection()
         {
@@ -105,6 +121,35 @@ namespace Klinika.Service
             }
 
             return users;
+        }
+
+
+        public User FindUserWithUserList(User userForFinding , List<User> userList)
+        {
+            foreach(User user in userList)
+            {
+                if(userForFinding.jmbg == user.jmbg) { return user; }
+            }
+            return null;
+        }
+    public void BlockUser(User selectedUser)
+        {
+            List<User> userList = GetAllUsers();
+            User blockedUser = FindUserWithUserList(selectedUser, userList);
+            blockedUser.isBaned = true;
+            _UserRepo.Serialize(userList);       
+
+
+        }
+
+    public void UnBlockUser(User selectedUser)
+        {
+            List<User> userList = GetAllUsers();
+            User unBlockedUser = FindUserWithUserList(selectedUser, userList);
+            unBlockedUser.isBaned = false;
+            _UserRepo.Serialize(userList);
+
+
         }
 
 

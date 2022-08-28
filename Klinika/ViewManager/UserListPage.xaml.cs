@@ -1,4 +1,5 @@
-﻿using Klinika.Controller;
+﻿using klinika.Enum;
+using Klinika.Controller;
 using Klinika.Model;
 using System;
 using System.Collections.Generic;
@@ -33,22 +34,69 @@ namespace Klinika.ViewManager
             var app = Application.Current as App;
             _userController = app.UserController;
             this.DataContext = this;
-            users = _userController.GetAllUsersInObservableCollection();
-            dataGridMedicine.ItemsSource = users;
-
+            
+            LoadUsersToObservableList();
         }
+
+       
 
         private void dataGridUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            User selectedUser = (User)dataGridUsers.SelectedItem;
+            UnBlocade.IsEnabled = true;
+            Blocade.IsEnabled = true;
+            if (selectedUser != null) { EnableButon(selectedUser); };
+
+        }
+
+        private void EnableButon(User selectedUser)
+        {
+            if ((UserType)selectedUser.userType == UserType.Manager)
+            {
+                UnBlocade.IsEnabled = false;
+                Blocade.IsEnabled = false;
+
+            }
+            else
+            {
+
+
+                if (selectedUser.isBaned)
+                {
+                    UnBlocade.IsEnabled = true;
+                    Blocade.IsEnabled = false; ;
+                }
+
+                if (!selectedUser.isBaned)
+                {
+                    Blocade.IsEnabled = true;
+                    UnBlocade.IsEnabled = false;
+                }
+
+            }
+
+        }
+
+        public void DisableButton()
+        {
+            UnBlocade.IsEnabled = false;
+            Blocade.IsEnabled = false;
+
 
         }
 
         private void ChangedFilter(object sender, SelectionChangedEventArgs e)
         {
+            
+            FilterUsers();
+
+        }
+
+        public void FilterUsers()
+        {
             users = _userController.FilteringUsers((int)filterCombo.SelectedIndex);
-
+            
             SortUsers();
-
 
         }
 
@@ -63,10 +111,45 @@ namespace Klinika.ViewManager
         {
             users = new ObservableCollection<User>(_userController.UserSorting((int)sortCombo.SelectedIndex, users.ToList()));
 
-            dataGridMedicine.ItemsSource = users;
+            dataGridUsers.ItemsSource = users;
+           
+        }
+
+        private void Blocade_Click(object sender, RoutedEventArgs e)
+        {
+            User selectedUser = (User)dataGridUsers.SelectedItem;
+
+            _userController.BlockUser(selectedUser);
+            DisableButton();
+            LoadUsersToObservableList();
+       
+        }
+
+        public void LoadUsersToObservableList()
+        {
+            
+            if (filterCombo.SelectedIndex < 0)
+            {
+                users = _userController.GetAllUsersInObservableCollection();
+                dataGridUsers.ItemsSource = users;
+                SortUsers();
+            }
+            else
+            {
+                FilterUsers();
+            }
+
 
         }
 
+        private void UnBlocade_Click(object sender, RoutedEventArgs e)
+        {
+            User selectedUser = (User)dataGridUsers.SelectedItem;
 
+            _userController.UnBlockUser(selectedUser);
+            DisableButton();
+            LoadUsersToObservableList();
+        
+        }
     }
 }

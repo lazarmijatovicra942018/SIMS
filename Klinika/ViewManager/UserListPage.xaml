@@ -55,7 +55,7 @@
 
 
 
-            <DataGrid Background="#F7FF93"  x:Name="dataGridMedicine" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
+            <DataGrid Background="#F7FF93"  x:Name="dataGridUsers" ItemsSource="{Binding Medicine}" IsReadOnly="True" 
                       SelectionMode="Single" AutoGenerateColumns="False" HorizontalAlignment="Left" 
                       Height="145" Margin="5,20,0,0" VerticalAlignment="Top" SelectionChanged="dataGridUsers_SelectionChanged" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Hidden" 
               ScrollViewer.HorizontalScrollBarVisibility="Hidden"  >
@@ -72,6 +72,16 @@
             </DataGrid>
 
         </Grid>
-        
+        <Grid Grid.Row="4">
+            <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
+
+                <Button  ToolTip="Blokiranje oznacenog korisnika ." Content="Blokiraj" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="Blocade" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="Blocade_Click" />
+                <Button  ToolTip="Odblokiranje oznacenog korisnika ." Content="Odblokiraj" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="UnBlocade" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="UnBlocade_Click" />
+
+
+
+            </StackPanel>
+
+        </Grid>
     </Grid>
 </Page>

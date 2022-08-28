@@ -32,7 +32,7 @@ namespace Klinika.Controller
 
         public User GetUserByEmail(string email) => _UserService.GetUserByEmail(email);
 
-        public bool LoginValidationByEmailAndPassword(string email, string password) => _UserService.LoginValidation(email, password);
+        public string LoginValidationByEmailAndPassword(string email, string password) => _UserService.LoginValidation(email, password);
 
 
         public void SaveNewUser(User user) => _UserService.SaveNewUser(user);
@@ -43,8 +43,9 @@ namespace Klinika.Controller
         public ObservableCollection<User> FilteringUsers(int userTypeIndex) => _UserService.FilteringUsers( userTypeIndex);
         public List<User> UserSorting(int sortChoise, List<User> users) => _UserService.UserSorting( sortChoise, users);
 
+        public void BlockUser(User selectedUser)=> _UserService.BlockUser(selectedUser);
 
-
+        public void UnBlockUser(User selectedUser) => _UserService.UnBlockUser(selectedUser);
 
     }
 }

@@ -30,7 +30,7 @@ namespace Klinika.ViewManager
             var app = Application.Current as App;
             _userController = app.UserController;
 
-            ActiveUserLabel.Text = (_userController.GetActiveUser?? new Model.User()).ToString() ?? " ";
+           ActiveUserLabel.Text = _userController.GetActiveUser.ToString() ?? " ";
 
 
 
