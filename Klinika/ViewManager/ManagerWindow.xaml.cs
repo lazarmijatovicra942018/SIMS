@@ -30,7 +30,7 @@ namespace Klinika.ViewManager
             var app = Application.Current as App;
             _userController = app.UserController;
 
-           ActiveUserLabel.Text = _userController.GetActiveUser.ToString() ?? " ";
+            ActiveUserLabel.Text = _userController.GetActiveUser.ToString() ?? " ";
 
 
 
@@ -64,6 +64,19 @@ namespace Klinika.ViewManager
         {
             Sadrzaj.NavigationService.Navigate(new UserListPage());
 
+        }
+
+
+        private void Validacija_Click(object sender, RoutedEventArgs e)
+        {
+            Sadrzaj.NavigationService.Navigate(new ValidationMedicinePage());
+
+
+        }
+
+        private void addMedicine_Click(object sender, RoutedEventArgs e)
+        {
+            Sadrzaj.NavigationService.Navigate(new RegisterMedicinePage());
         }
     }
 }

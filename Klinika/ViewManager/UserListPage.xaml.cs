@@ -120,9 +120,9 @@ namespace Klinika.ViewManager
             User selectedUser = (User)dataGridUsers.SelectedItem;
 
             _userController.BlockUser(selectedUser);
-            DisableButton();
             LoadUsersToObservableList();
-       
+            DisableButton();
+
         }
 
         public void LoadUsersToObservableList()
@@ -147,9 +147,9 @@ namespace Klinika.ViewManager
             User selectedUser = (User)dataGridUsers.SelectedItem;
 
             _userController.UnBlockUser(selectedUser);
-            DisableButton();
             LoadUsersToObservableList();
-        
+            DisableButton();
+
         }
     }
 }

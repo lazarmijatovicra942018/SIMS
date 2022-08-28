@@ -29,8 +29,8 @@ namespace Klinika.Controller
         public void SaveMedicines(List<Medicine> partialMedicalList) => _MedicineService.SaveMedicines(partialMedicalList);
 
         public void SaveChangedMedicine(Medicine changedMedicine) => _MedicineService.SaveChangedMedicine(changedMedicine);
- 
 
+        public void SaveNewMedicine(Medicine medicine) => _MedicineService.SaveNewMedicine(medicine);
 
 
         public List<Medicine> MedicineListSorter(int sortChoise, List<Medicine> medicineList) => _MedicineService.MedicineListSorter(sortChoise, medicineList);

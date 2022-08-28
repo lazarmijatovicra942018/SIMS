@@ -12,9 +12,10 @@ namespace Klinika.Service
     public class UserService
     {
         private readonly UserRepository _UserRepo;
-        public   User activeUser { 
-            get ; 
-            set; }
+        public   User activeUser{ 
+            get; 
+            set; 
+        }
 
         public int shutDownCounter { get; set; }
 

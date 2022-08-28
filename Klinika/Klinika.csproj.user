@@ -22,6 +22,9 @@
     <Compile Update="ViewManager\PharmacistWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="ViewManager\RegisterMedicinePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ViewManager\RegisterUserPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +55,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\PharmacistWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\RegisterMedicinePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\RegisterUserPage.xaml">

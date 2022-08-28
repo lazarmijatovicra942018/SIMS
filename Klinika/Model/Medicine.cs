@@ -35,9 +35,23 @@ namespace klinika.Model
         
         public string DeclineDescription { get; set; }
 
+        public Medicine(string id, string name, string manufactur, IDictionary<string, Component> components, int quantity, double price )
+        {
+            this.id = id;
+            this.name = name;
+            this.manufactur = manufactur;
+            this.components = components;
+            this.quantity = quantity;
+            this.price = price;
+            this.isDeclined = false;
+            this.isApproved = false;
+            ApprovedByUsers = new List<User>();
+            DeclinedByUsers = null;
+            DeclineDescription = null;
+        }
 
-
-
-
+        public Medicine()
+        {
+        }
     }
 }

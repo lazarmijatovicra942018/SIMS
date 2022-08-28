@@ -74,3 +74,5 @@ C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-window
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\RegisterUserPage.baml
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\UserListPage.g.cs
 C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\UserListPage.baml
+C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\RegisterMedicinePage.g.cs
+C:\Users\DLAKAVI TALAMBAS\Desktop\SIMS 24.8\SIMS\Klinika\obj\Debug\net6.0-windows\ViewManager\RegisterMedicinePage.baml
