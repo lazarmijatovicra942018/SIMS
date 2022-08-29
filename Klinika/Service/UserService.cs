@@ -84,9 +84,7 @@ namespace Klinika.Service
 
         public ObservableCollection<User> GetAllUsersInObservableCollection()
         {
-            ObservableCollection<User> users = new ObservableCollection<User>();
-
-            users = _UserRepo.PutListInObservableCollection(GetAllUsers());
+            ObservableCollection<User> users = new ObservableCollection<User>(GetAllUsers());
 
             return users;
         }

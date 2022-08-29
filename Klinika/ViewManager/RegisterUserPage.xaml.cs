@@ -35,6 +35,7 @@ namespace Klinika.ViewManager
 
             var app = Application.Current as App;
             _userController = app.UserController;
+
         }
 
         private void Registracija_Click(object sender, RoutedEventArgs e)
@@ -86,7 +87,7 @@ namespace Klinika.ViewManager
 
         private void EmptyTextBoxCheck()
         {
-            registration.IsEnabled = false;
+            
 
             if (string.IsNullOrEmpty(name.Text) || string.IsNullOrEmpty(lastName.Text) || string.IsNullOrEmpty(jmbg.Text) || string.IsNullOrEmpty(email.Text) || string.IsNullOrEmpty(phoneNumber.Text))
             {
