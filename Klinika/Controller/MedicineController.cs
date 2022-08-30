@@ -4,9 +4,6 @@ using Klinika.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klinika.Controller
 {
@@ -14,8 +11,8 @@ namespace Klinika.Controller
     {
 
         private readonly MedicineService _MedicineService;
-        
-        public MedicineController (MedicineService medicineService)
+
+        public MedicineController(MedicineService medicineService)
         {
             _MedicineService = medicineService;
         }
@@ -32,23 +29,23 @@ namespace Klinika.Controller
 
         public void SaveNewMedicine(Medicine medicine) => _MedicineService.SaveNewMedicine(medicine);
 
-       
+
         public List<Medicine> MedicineListSorter(int sortChoise, List<Medicine> medicineList) => _MedicineService.MedicineListSorter(sortChoise, medicineList);
 
         public ObservableCollection<Medicine> SearchBy(int searchableitem, List<Medicine> medicineList, string searchBoxText) => _MedicineService.SearchBy(searchableitem, medicineList, searchBoxText);
 
-        public ObservableCollection<Medicine> SearchByPrice(List<Medicine> medicineList, string minPrice, string maxPrice) => _MedicineService.SearchByPrice( medicineList, minPrice, maxPrice);
+        public ObservableCollection<Medicine> SearchByPrice(List<Medicine> medicineList, string minPrice, string maxPrice) => _MedicineService.SearchByPrice(medicineList, minPrice, maxPrice);
 
-        
+
 
         public List<Medicine> GetAllMedicationWaitingForApproval() => _MedicineService.GetAllMedicationWaitingForApproval();
 
 
-        public   ObservableCollection<Medicine> GetObservableListApprovalPending(ObservableCollection<Medicine> medicines) => _MedicineService.GetObservableListApprovalPending(medicines);
+        public ObservableCollection<Medicine> GetObservableListApprovalPending(ObservableCollection<Medicine> medicines) => _MedicineService.GetObservableListApprovalPending(medicines);
 
-        public void MedicineApproval(Medicine medicineForApproval, User user) => _MedicineService.MedicineApproval(medicineForApproval, user);
+        public void MedicineApproval(Medicine medicineForApproval) => _MedicineService.MedicineApproval(medicineForApproval);
 
-        public void MedicineDecline(Medicine medicineForDecline, User activeUser, string description) =>  _MedicineService.MedicineDecline( medicineForDecline,  activeUser, description);
+        public void MedicineDecline(Medicine medicineForDecline, User activeUser, string description) => _MedicineService.MedicineDecline(medicineForDecline, activeUser, description);
 
 
         public ObservableCollection<Medicine> GetAllApprovedAndDeclinedMedicines() => _MedicineService.GetAllApprovedAndDeclinedMedicines();
@@ -60,6 +57,10 @@ namespace Klinika.Controller
         public void AddQuantity(Medicine selectedMedicine, int quantity) => _MedicineService.AddQuantity(selectedMedicine, quantity);
 
         public void AddQuantityWithTime(Medicine selectedMedicine, int quantity, DateTime timeInterval) => _MedicineService.AddQuantityWithTime(selectedMedicine, quantity, timeInterval);
+
+        public void AddNewMedicine(string id, string name, string manufactur, ObservableCollection<Component> componentsOb, int quantity, double price) => _MedicineService.AddNewMedicine(id, name, manufactur, componentsOb, quantity, price);
+
+
     }
 
 

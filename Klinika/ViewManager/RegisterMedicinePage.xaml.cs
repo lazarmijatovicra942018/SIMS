@@ -3,20 +3,9 @@ using Klinika.Controller;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Klinika.ViewManager
 {
@@ -29,6 +18,7 @@ namespace Klinika.ViewManager
 
 
         private static MedicineController _medicineController;
+        private static ComponentController _componentController;
 
         public bool clearFunctionActive = false;
 
@@ -38,6 +28,9 @@ namespace Klinika.ViewManager
             InitializeComponent();
             var app = Application.Current as App;
             _medicineController = app.MedicineController;
+            _componentController = app.ComponentController;
+
+
             this.DataContext = this;
             dataGridComponents.ItemsSource = components;
 
@@ -45,59 +38,66 @@ namespace Klinika.ViewManager
 
         }
 
-
+        #region AddMedicine
 
         private void addMedicine_Click(object sender, RoutedEventArgs e)
         {
             AddComponent();
-
-            Medicine medicine = new Medicine(idTextBox.Text.ToString(), nameTextBox.Text.ToString() , manufacturTextBox.Text.ToString() , ConvertObservableCollectionToIDictionary() , Int32.Parse(quantityTextBox.Text.ToString()) , Double.Parse(priceTextBox.Text.ToString()));
+            _medicineController.AddNewMedicine(idTextBox.Text.ToString(), nameTextBox.Text.ToString(), manufacturTextBox.Text.ToString(), components, Int32.Parse(quantityTextBox.Text.ToString()), Double.Parse(priceTextBox.Text.ToString()));
             ClearAllTextFieldsAndList();
-            _medicineController.SaveNewMedicine(medicine);
+           
 
 
 
         }
 
-        private void ClearAllTextFieldsAndList()
-        {
-            clearFunctionActive = true;
-            idTextBox.Clear();
-            nameTextBox.Clear();
-            manufacturTextBox.Clear();
-            quantityTextBox.Clear();
-            priceTextBox.Clear();
-            components.Clear();
-            ClearComponentTextBoxes();
-            clearFunctionActive=false;
+        #endregion
 
-        }
+   
 
-        public IDictionary<string, Component> ConvertObservableCollectionToIDictionary()
-        {
-            IDictionary<string, Component> componentsIDictionary = new Dictionary<string, Component>();
 
-            foreach(Component component in components)
-            {
-                componentsIDictionary.Add(component.componentName, component);
-            }
+    
 
-            return componentsIDictionary;
 
-        }
-
+        #region ComponentsAddDelete
         private void componentDelete_Click(object sender, RoutedEventArgs e)
         {
             Component component = (Component)dataGridComponents.SelectedItem;
-            
-            components.Remove(component);
-          
+
+            components = _componentController.DeleteComponent(component, components);
+
             componentDelete.IsEnabled = false;
-            
+
             AddMedicineButtonVisibility();
 
         }
 
+
+        private void addCompoentnt_Click(object sender, RoutedEventArgs e)
+        {
+            AddComponent();
+
+        }
+
+        public void AddComponent()
+        {
+            if (componentAdd.IsEnabled)
+            {
+
+                components = _componentController.AddComponent(componentNameTextBox.Text.ToString(), componentDescriptionTextBox.Text.ToString(),components);
+                ClearComponentTextBoxes();
+                componentDelete.IsEnabled = false;
+                componentAdd.IsEnabled = false;
+
+
+            }
+
+        }
+
+
+        #endregion
+
+        #region TextBoxChanged
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!clearFunctionActive)
@@ -112,9 +112,92 @@ namespace Klinika.ViewManager
 
         }
 
+        #endregion
+
+
+        #region EnableDisableVisibleClear
+
+
+        private void ClearAllTextFieldsAndList()
+        {
+            clearFunctionActive = true;
+            idTextBox.Clear();
+            nameTextBox.Clear();
+            manufacturTextBox.Clear();
+            quantityTextBox.Clear();
+            priceTextBox.Clear();
+            components.Clear();
+            ClearComponentTextBoxes();
+            clearFunctionActive = false;
+
+        }
+        private void AddMedicineButtonVisibility()
+        {
+
+            if ((componentAdd.IsEnabled || components.Count > 0) && !string.IsNullOrEmpty(manufacturTextBox.Text) && !string.IsNullOrEmpty(quantityTextBox.Text) && !string.IsNullOrEmpty(idTextBox.Text) && !string.IsNullOrEmpty(nameTextBox.Text) && !string.IsNullOrEmpty(priceTextBox.Text))
+            {
+                addMedicine.IsEnabled = true;
+            }
+            else
+            {
+                addMedicine.IsEnabled = false;
+            }
+
+        }
+
+
+     
+
+        public void AddComponentButtonVisibility()
+        {
+            if (!string.IsNullOrEmpty(componentNameTextBox.Text) && !string.IsNullOrEmpty(componentDescriptionTextBox.Text))
+            {
+                componentAdd.IsEnabled = true;
+
+            }
+            else
+            {
+
+                componentAdd.IsEnabled = false;
+            }
+
+        }
+
+
+
+        private void ClearComponentTextBoxes()
+        {
+            clearFunctionActive = true;
+            componentNameTextBox.Clear();
+            componentDescriptionTextBox.Clear();
+            clearFunctionActive = false;
+
+        }
+
+
+        #endregion
+
+
+        #region DataGridComponents
+        private void dataGridComponents_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dataGridComponents.SelectedItem != null)
+            {
+                componentDelete.IsEnabled = true;
+            }
+            else
+            {
+                componentDelete.IsEnabled = false;
+
+            }
+
+        }
+        #endregion
+
+        #region Check 
         private void PriceCheck()
         {
-            if(string.IsNullOrEmpty(priceTextBox.Text))
+            if (string.IsNullOrEmpty(priceTextBox.Text))
             {
                 addMedicine.IsEnabled = false;
 
@@ -146,7 +229,8 @@ namespace Klinika.ViewManager
 
         private void ComponentNameCheck()
         {
-            foreach (Component component in components) {
+            foreach (Component component in components)
+            {
                 if (componentNameTextBox.Text.ToString() == component.componentName)
                 {
                     addMedicine.IsEnabled = false;
@@ -157,92 +241,23 @@ namespace Klinika.ViewManager
             }
         }
 
+
         private void MedicineIDCheck()
         {
-            
-                if (_medicineController.GetMedicineById(idTextBox.Text.ToString()) != null)
-                {
-                    addMedicine.IsEnabled = false;
-                    MessageBox.Show(" Id leka mora biti jedinstven .");
 
-
-                }
-            
-        }
-
-        private void AddMedicineButtonVisibility()
-        {
-
-            if (( componentAdd.IsEnabled || components.Count>0 ) && !string.IsNullOrEmpty(manufacturTextBox.Text) && !string.IsNullOrEmpty(quantityTextBox.Text) && !string.IsNullOrEmpty(idTextBox.Text) && !string.IsNullOrEmpty(nameTextBox.Text) && !string.IsNullOrEmpty(priceTextBox.Text))
+            if (_medicineController.GetMedicineById(idTextBox.Text.ToString()) != null)
             {
-                addMedicine.IsEnabled = true;
-            }
-            else
-            { 
                 addMedicine.IsEnabled = false;
-            }
-
-        }
-
-        private void addCompoentnt_Click(object sender, RoutedEventArgs e)
-        {
-            AddComponent();
-
-            
-
-        }
-
-        public void AddComponent()
-        {
-            if (componentAdd.IsEnabled)
-            {
-                Component component = new Component(componentNameTextBox.Text.ToString(), componentDescriptionTextBox.Text.ToString());
-                components.Add(component);
-                ClearComponentTextBoxes();
-                componentDelete.IsEnabled = false;
-                componentAdd.IsEnabled = false;
+                MessageBox.Show(" Id leka mora biti jedinstven .");
 
 
             }
 
         }
 
-        private void ClearComponentTextBoxes()
-        {
-            clearFunctionActive = true;
-                componentNameTextBox.Clear();
-                componentDescriptionTextBox.Clear();
-            clearFunctionActive = false;
 
-        }
 
-        public void AddComponentButtonVisibility()
-        {
-            if(!string.IsNullOrEmpty(componentNameTextBox.Text) && !string.IsNullOrEmpty(componentDescriptionTextBox.Text))
-            {
-                componentAdd.IsEnabled = true;
-            
-            }
-            else
-            {
+        #endregion
 
-                componentAdd.IsEnabled = false;
-            }
-
-        }
-
-        private void dataGridComponents_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(dataGridComponents.SelectedItem != null)
-            {
-                componentDelete.IsEnabled = true;
-            }
-            else
-            {
-                componentDelete.IsEnabled = false;
-
-            }
-
-        }
     }
 }

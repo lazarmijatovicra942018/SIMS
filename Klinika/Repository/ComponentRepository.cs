@@ -1,10 +1,5 @@
-﻿using System;
+﻿using klinika.Model;
 using System.Collections.Generic;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using klinika.Model;
 
 namespace Klinika.Repository
 {
@@ -26,7 +21,8 @@ namespace Klinika.Repository
         }
 
 
-        public ComponentRepository(){
+        public ComponentRepository()
+        {
             filePath = "component.json";
         }
     }

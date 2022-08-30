@@ -1,21 +1,10 @@
 ﻿using klinika.Model;
 using Klinika.Controller;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Klinika.ViewManager
 {
@@ -50,14 +39,14 @@ namespace Klinika.ViewManager
             }
 
             medicines = _medicineController.PutListInObservableCollection(medicineList);
-            dataGridMedicine.ItemsSource =medicines;
+            dataGridMedicine.ItemsSource = medicines;
 
 
 
 
         }
 
-       
+
 
         private void dataGridSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -158,7 +147,7 @@ namespace Klinika.ViewManager
 
         }
 
-       
+
 
         private void Sastojci_Click(object sender, RoutedEventArgs e)
         {
@@ -167,7 +156,7 @@ namespace Klinika.ViewManager
             componentsWindow.Show();
 
 
-            
+
         }
 
         private void Decline_Click(object sender, RoutedEventArgs e)
@@ -176,8 +165,8 @@ namespace Klinika.ViewManager
             Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
 
             _medicineController.MedicineDecline(selectedMedicine, _userController.GetActiveUser, Description.Text.ToString());
-            
-            
+
+
             _medicineController.GetObservableListApprovalPending(medicines);
 
             _medicineController.SaveChangedMedicine(selectedMedicine);
@@ -188,7 +177,7 @@ namespace Klinika.ViewManager
 
             Description.Clear();
 
-            
+
         }
 
 
@@ -203,15 +192,15 @@ namespace Klinika.ViewManager
 
 
 
-            _medicineController.MedicineApproval(selectedMedicine, _userController.GetActiveUser);
+            _medicineController.MedicineApproval(selectedMedicine);
 
             _medicineController.SaveChangedMedicine(selectedMedicine);
 
 
-             _medicineController.GetObservableListApprovalPending(medicines);
-             dataGridMedicine.ItemsSource = medicines;
+            _medicineController.GetObservableListApprovalPending(medicines);
+            dataGridMedicine.ItemsSource = medicines;
 
-            
+
         }
     }
 }

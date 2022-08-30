@@ -1,19 +1,7 @@
 ﻿using Klinika.Controller;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Klinika.ViewManager
 {
@@ -27,7 +15,7 @@ namespace Klinika.ViewManager
 
         private bool clearFunctionActive;
 
-        
+
 
         public RegisterUserPage()
         {
@@ -38,7 +26,9 @@ namespace Klinika.ViewManager
 
         }
 
-        private void Registracija_Click(object sender, RoutedEventArgs e)
+        #region RegistrationButton
+
+        private void Registration_Click(object sender, RoutedEventArgs e)
         {
 
             if (comboUserType.SelectedIndex == 0)
@@ -57,6 +47,9 @@ namespace Klinika.ViewManager
 
 
         }
+        #endregion
+
+        #region Clear
 
         private void textBoxesClear()
         {
@@ -73,6 +66,10 @@ namespace Klinika.ViewManager
 
         }
 
+        #endregion
+
+        #region TextBoxChanged
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (!clearFunctionActive)
@@ -85,77 +82,82 @@ namespace Klinika.ViewManager
 
         }
 
+        #endregion
+
+        #region Check
+
         private void EmptyTextBoxCheck()
         {
-            
+
 
             if (string.IsNullOrEmpty(name.Text) || string.IsNullOrEmpty(lastName.Text) || string.IsNullOrEmpty(jmbg.Text) || string.IsNullOrEmpty(email.Text) || string.IsNullOrEmpty(phoneNumber.Text))
             {
-                registration.IsEnabled = false;
+                registrationButton.IsEnabled = false;
             }
             else
             {
-                registration.IsEnabled = true;
+                registrationButton.IsEnabled = true;
 
- 
+
             }
 
         }
-        
+
         private void PhoneNumberCheck()
         {
-            
+
 
             if (string.IsNullOrEmpty(phoneNumber.Text))
             {
-                registration.IsEnabled = false;
+                registrationButton.IsEnabled = false;
 
             }
             else if (!Regex.IsMatch(phoneNumber.Text.ToString(), @"^\d+$"))
             {
-                registration.IsEnabled = false;
+                registrationButton.IsEnabled = false;
                 MessageBox.Show("Broj telefona mora biti broj .");
             }
-            
+
         }
 
         private void EmailValidationCheck()
         {
-           
+
             if (string.IsNullOrEmpty(email.Text))
             {
-                registration.IsEnabled = true;
+                registrationButton.IsEnabled = true;
 
 
             }
             else if (_userController.GetUserByEmail(email.Text.ToString()) != null)
             {
-                registration.IsEnabled = false;
+                registrationButton.IsEnabled = false;
                 MessageBox.Show("E-mail adresa mora biti jedinstvena !!!");
-            
+
             }
 
-                
+
 
         }
 
         private void JmbgValidationCheck()
         {
 
-            
+
 
             if (string.IsNullOrEmpty(jmbg.Text))
             {
-                return ;
+                return;
             }
             else if (_userController.GetUserByJmbg(jmbg.Text.ToString()) != null)
             {
-                registration.IsEnabled = false;
+                registrationButton.IsEnabled = false;
                 MessageBox.Show("Jmbg adresa mora biti jedinstvena !!!");
-                
+
             }
-            
+
 
         }
+        #endregion
     }
 }

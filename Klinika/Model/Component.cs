@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace klinika.Model
+﻿namespace klinika.Model
 {
-    public class Component 
+    public class Component
     {
-        public string componentName { get; set; }
+        private string ComponentName;
 
-        public string componentDescription { get; set; }
+        private string ComponentDescription;
+
+        public string componentDescription { 
+            get { return ComponentDescription; } 
+            set { ComponentDescription = value; }
+        }
+
+        public string componentName { 
+            get { return ComponentName; }
+            set { ComponentName = value; }
+        }
+
 
         public Component(string componentName, string componentDescription)
         {
