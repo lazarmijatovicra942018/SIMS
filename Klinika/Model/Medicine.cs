@@ -35,6 +35,10 @@ namespace klinika.Model
         
         public string DeclineDescription { get; set; }
 
+        public DateTime dateForAddingQuantities { get; set; }
+
+        public int quantityForAdding { get; set; }  
+
         public Medicine(string id, string name, string manufactur, IDictionary<string, Component> components, int quantity, double price )
         {
             this.id = id;
@@ -48,6 +52,8 @@ namespace klinika.Model
             ApprovedByUsers = new List<User>();
             DeclinedByUsers = null;
             DeclineDescription = null;
+            dateForAddingQuantities = new DateTime();
+            quantityForAdding = 0;  
         }
 
         public Medicine()

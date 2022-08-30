@@ -25,8 +25,8 @@ namespace Klinika.ViewManager
         public ManagerWindow()
         {
             InitializeComponent();
-            Sadrzaj.NavigationService.Navigate(new UserPage());
 
+            Sadrzaj.NavigationService.Navigate(new UserPage());
             var app = Application.Current as App;
             _userController = app.UserController;
 

@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "22Jf09dd5cwIZtqlXkKogEjragkT0HeVsUVIsUdQUqsAog2lQcku/Vktk3w6iOcW6od2V6Rhwjqh+/svMShkgQ==",
+  "dgSpecHash": "wSgat/TxuP4osk/+GUuBFq2QuCF9EBCjwjJqqtnIEJ+DuO6peBBU5IrRqyiFVaD1lQqW+aF/vIyGAf1ExXv4CA==",
   "success": true,
   "projectFilePath": "C:\\Users\\DLAKAVI TALAMBAS\\Desktop\\SIMS 24.8\\SIMS\\Klinika\\Klinika.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\DLAKAVI TALAMBAS\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+    "C:\\Users\\DLAKAVI TALAMBAS\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\DLAKAVI TALAMBAS\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
+    "C:\\Users\\DLAKAVI TALAMBAS\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\DLAKAVI TALAMBAS\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
+    "C:\\Users\\DLAKAVI TALAMBAS\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }

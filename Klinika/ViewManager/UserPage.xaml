@@ -92,7 +92,7 @@
                 <Button   ToolTip="Nabavka novih lekova " Content="Nabavka " Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="addQuantityButton" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Visibility="Hidden" Click="addQuantityButton_Click" />
                 <TextBox x:Name="quantityTextBox"   Visibility="Hidden" FlowDirection="LeftToRight"   TextAlignment="Left" Margin="30,20,0,0"  Width="130" Height="30"  TextChanged="quantityTextBox_TextChanged"/>
 
-                <DatePicker x:Name="datePicker"   Margin="60,20,0,0" Width="100" Height="30" Visibility="Hidden" />
+                <DatePicker x:Name="datePicker"   Margin="60,20,0,0" Width="100" Height="30" Visibility="Hidden" SelectedDateChanged="datePicker_SelectionChanged" />
 
 
             </StackPanel>

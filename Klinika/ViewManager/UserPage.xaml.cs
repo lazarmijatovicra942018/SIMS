@@ -6,7 +6,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Klinika.ViewManager
 {
@@ -24,7 +27,7 @@ namespace Klinika.ViewManager
     /// </summary>
     public partial class UserPage : Page
     {
-
+       
 
         public static ObservableCollection<Medicine> medicines { get; set; }
 
@@ -45,11 +48,16 @@ namespace Klinika.ViewManager
             LoadApprovedMedcineToObservableCollection();
             MenagerVisible();
             
-
-            
+          
 
         }
 
+
+       
+
+      
+
+        
 
         public void MenagerVisible()
         {
@@ -91,6 +99,7 @@ namespace Klinika.ViewManager
             componentsButton.IsEnabled = false;
             dataGridMedicine.SelectedItem = null;
             quantityTextBox.Clear();
+            datePicker = new DatePicker();
         }
 
 
@@ -219,6 +228,7 @@ namespace Klinika.ViewManager
         private void quantityTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
                  QuantityCheck();
+                 CheckIfTimeIsPassed();
         }
 
 
@@ -247,8 +257,46 @@ namespace Klinika.ViewManager
 
         private void AddQuantityToMedicine()
         {
-            _medicineController.AddQuantity((Medicine)dataGridMedicine.SelectedItem, int.Parse(quantityTextBox.Text));
+            if (datePicker.SelectedDate == null)
+            {
+          
+        
+                _medicineController.AddQuantity((Medicine)dataGridMedicine.SelectedItem, int.Parse(quantityTextBox.Text));
+            
+            }
+            else
+            {
+
+                _medicineController.AddQuantityWithTime((Medicine)dataGridMedicine.SelectedItem, int.Parse(quantityTextBox.Text), (DateTime)datePicker.SelectedDate);
+
+
+            }
         }
+
+        
+
+
+       
+        private void datePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CheckIfTimeIsPassed();
+        }
+    
+        public void CheckIfTimeIsPassed()
+        {
+            if (datePicker.SelectedDate == null)
+            {
+                
+            }
+             else if ((DateTime)datePicker.SelectedDate < DateTime.Now)
+            {
+                 MessageBox.Show("Vreme koje ste izabrali je proslo .");
+             
+                addQuantityButton.IsEnabled=false;
+            }
+        }
+
+      
 
     }
 }

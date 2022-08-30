@@ -58,6 +58,8 @@ namespace Klinika.Controller
         public ObservableCollection<Medicine> GetAllADeclinedMedicines() => _MedicineService.GetAllADeclinedMedicines();
 
         public void AddQuantity(Medicine selectedMedicine, int quantity) => _MedicineService.AddQuantity(selectedMedicine, quantity);
+
+        public void AddQuantityWithTime(Medicine selectedMedicine, int quantity, DateTime timeInterval) => _MedicineService.AddQuantityWithTime(selectedMedicine, quantity, timeInterval);
     }
 
 

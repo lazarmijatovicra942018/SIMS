@@ -7,8 +7,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
+using System.Windows.Threading;
 
 namespace Klinika.Service
 {
@@ -18,7 +21,7 @@ namespace Klinika.Service
         private readonly MedicineRepository _MedicineRepo;
 
         
-
+        private List<Medicine> medicinesWithAddingDate = new List<Medicine>();
         
 
 
@@ -27,9 +30,14 @@ namespace Klinika.Service
         {
             _MedicineRepo = medicineRepository;
             var app = Application.Current as App;
-           
-
+             LoadMedicinesWithDatesInList();
+               InitilaizeTimer();
+               timer.Start();
+          
+            
         }
+
+
 
         public List<Medicine> GetAllMedication() => _MedicineRepo.GetAll();
 
@@ -46,7 +54,8 @@ namespace Klinika.Service
         public List<Medicine> GetAllMedicationWaitingForApproval()
         {
             List<Medicine> medicationWaitingForApproval = new List<Medicine>();
-            foreach(Medicine medicine in GetAllMedication())
+            List<Medicine> medicineList = GetAllMedication();
+            foreach (Medicine medicine in medicineList)
             {
                 if (medicine.isApproved== false &&  medicine.isDeclined == false) { medicationWaitingForApproval.Add(medicine);}
 
@@ -86,7 +95,6 @@ namespace Klinika.Service
         }
 
         #endregion
-
 
         #region Search
         public ObservableCollection<Medicine> SearchBy(int searchableitem,List<Medicine> medicineList, string searchBoxText)
@@ -259,6 +267,20 @@ namespace Klinika.Service
             return returnList;
         }
 
+
+        public bool CheckIfMedicineContainsComponent(Medicine medicine, string delimiteredText)
+        {
+            foreach (String component in medicine.components.Keys)
+            {
+
+                if (component.ToLower().Contains(delimiteredText.ToLower()))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         #endregion
 
         #region SearchByPrice
@@ -321,27 +343,6 @@ namespace Klinika.Service
 
 
         #endregion
-
-
-        public bool CheckIfMedicineContainsComponent(Medicine medicine ,string delimiteredText)
-        {
-                foreach(String component in medicine.components.Keys)
-                {
-
-                     if (component.ToLower().Contains(delimiteredText.ToLower()))
-                     {
-                          return true;
-                     }
-                }
-
-            return false;
-        }
-
-        
-
-       
-      
-
 
         #region MedicineApproval
 
@@ -431,6 +432,7 @@ namespace Klinika.Service
                 if(changedMedicine.id == medicine.id)
                 {
                     medicineList.Remove(medicine);
+
                 }
             }
 
@@ -442,7 +444,7 @@ namespace Klinika.Service
         }
 
 
-        #region GetAllMedicineInObservableList
+        #region GetAllMedicineInObservableCollection
 
 
         public ObservableCollection<Medicine> GetObservableListApprovalPending(ObservableCollection<Medicine> medicines)
@@ -539,6 +541,9 @@ namespace Klinika.Service
 
         public void AddQuantity(Medicine selectedMedicine , int quantity)
             {
+
+              
+
                 List<Medicine> medicineList = GetAllMedication();
                 Medicine medicineForAdition = FindMedicineById(medicineList, selectedMedicine.id);
                 medicineForAdition.quantity = quantity + medicineForAdition.quantity;
@@ -546,16 +551,69 @@ namespace Klinika.Service
 
             }
 
-            private Medicine FindMedicineById(List<Medicine> medicineList, string id)
+        private DispatcherTimer timer = new DispatcherTimer();
+    
+      
+        public void AddQuantityWithTime(Medicine selectedMedicine, int quantity, DateTime timeForAdding)
+        {
+           
+
+            selectedMedicine.quantityForAdding = quantity;         
+            selectedMedicine.dateForAddingQuantities = timeForAdding;
+            SaveChangedMedicine(selectedMedicine);
+            LoadMedicinesWithDatesInList();
+           
+
+        }
+
+        
+
+
+        private void InitilaizeTimer()
+        {
+            timer.Interval = TimeSpan.FromSeconds(60);
+            timer.Tick += timer_Tict;
+
+        }
+     
+        private void timer_Tict(object? sender, EventArgs e)
+        {
+             foreach(Medicine medicine in medicinesWithAddingDate)
+            {
+                if(medicine.dateForAddingQuantities  < DateTime.Now)
+                {
+                    int quantity = medicine.quantityForAdding;
+                    medicine.dateForAddingQuantities = new DateTime();
+
+
+                    AddQuantity(medicine,quantity);
+
+                }
+            }
+            
+         }
+
+        public void LoadMedicinesWithDatesInList()
+        { 
+                List<Medicine> medicationWithDates = GetAllMedication();
+                foreach (Medicine medicine in medicationWithDates)
+                {
+                if (medicine.dateForAddingQuantities != new DateTime()) { medicinesWithAddingDate.Add(medicine); }; 
+                        
+                }
+                
+        }
+        
+
+
+        private Medicine FindMedicineById(List<Medicine> medicineList, string id)
             {
                 foreach(Medicine medicine in medicineList)
                 {
                     if(medicine.id == id) { return medicine; }
                 }
                 return null;
-            }
-
-            
+            }   
     }
 
 }
