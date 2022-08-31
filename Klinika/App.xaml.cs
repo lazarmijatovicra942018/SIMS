@@ -24,6 +24,7 @@ namespace Klinika
 
         public App()
         {
+           
             var userRepository = new UserRepository();
             var componentRepository = new ComponentRepository();
             var medicineRepository = new MedicineRepository();
@@ -35,7 +36,7 @@ namespace Klinika
             UserController = new UserController(userService);
             ComponentController = new ComponentController(componentService);
             MedicineController = new MedicineController(medicineService);
-
+          
 
 
 

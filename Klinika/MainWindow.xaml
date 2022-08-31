@@ -22,11 +22,11 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="E-mail :" FontFamily="Bold,Candra"  HorizontalAlignment="Left" FontSize="20" Margin="130,123,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.413,2.968" Grid.ColumnSpan="2" />
-            <TextBox   TextWrapping="Wrap" x:Name="email" FontSize="15" HorizontalAlignment="Left" VerticalContentAlignment="Center" ToolTip="Unesite korisničko ime"  Margin="95,123,0,0"  VerticalAlignment="Top" Width="200" Height="30"  RenderTransformOrigin="0.497,2.675" SelectionBrush="#005555" Grid.Column="1"/>
+            <TextBox Text="menager@gmail.com"  TextWrapping="Wrap" x:Name="email" FontSize="15" HorizontalAlignment="Left" VerticalContentAlignment="Center" ToolTip="Unesite korisničko ime"  Margin="95,123,0,0"  VerticalAlignment="Top" Width="200" Height="30"  RenderTransformOrigin="0.497,2.675" SelectionBrush="#005555" Grid.Column="1"/>
             <Label Content="Šifra:" HorizontalAlignment="Left" FontSize="20" Margin="130,0,0,0" VerticalAlignment="Center" RenderTransformOrigin="-0.724,0.464" />
-            <TextBox  x:Name="password" FontSize="15" HorizontalAlignment="Left" VerticalContentAlignment="Center" ToolTip="Unesite lozinku"  VerticalAlignment="Center" Width="200" Height="30" RenderTransformOrigin="0.376,0.67" SelectionBrush="#005555" Grid.Column="1" Margin="95,0,0,0"/>
+            <TextBox Text="menager" x:Name="password" FontSize="15" HorizontalAlignment="Left" VerticalContentAlignment="Center" ToolTip="Unesite lozinku"  VerticalAlignment="Center" Width="200" Height="30" RenderTransformOrigin="0.376,0.67" SelectionBrush="#005555" Grid.Column="1" Margin="95,0,0,0"/>
             <Button Content="PRIJAVA"   Click="ButtonLogin"  Background="#005555"  FontFamily="Candara" Foreground="White" BorderBrush="{x:Null}" HorizontalAlignment="Left" Margin="145,276,0,0" VerticalAlignment="Top" Height="30" Width="100" RenderTransformOrigin="0.549,2.243" Grid.Column="1"/>
-            <Frame NavigationUIVisibility="Hidden" x:Name="MainFrame" Grid.ColumnSpan="2"/>
+            <Frame NavigationUIVisibility="Hidden" x:Name="MainFrame" Grid.ColumnSpan="2" Margin="0,-2,0,2"/>
         </Grid>
 
     </Grid>

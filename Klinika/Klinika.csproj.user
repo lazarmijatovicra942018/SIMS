@@ -13,19 +13,22 @@
     <Compile Update="ViewManager\ComponentsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ViewManager\DoctorView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="ViewManager\DoctorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="ViewManager\ManagerWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ViewManager\PharmacistView.xaml.cs">
+    <Compile Update="ViewManager\PharmacistWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ViewManager\PharmacistWindow.xaml.cs">
+    <Compile Update="ViewManager\RegisterMedicinePage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\RegisterUserPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="ViewManager\UserListPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="ViewManager\UserPage.xaml.cs">
@@ -45,19 +48,22 @@
     <Page Update="ViewManager\ComponentsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ViewManager\DoctorView.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="ViewManager\DoctorWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\ManagerWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ViewManager\PharmacistView.xaml">
+    <Page Update="ViewManager\PharmacistWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="ViewManager\PharmacistWindow.xaml">
+    <Page Update="ViewManager\RegisterMedicinePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\RegisterUserPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewManager\UserListPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="ViewManager\UserPage.xaml">

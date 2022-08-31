@@ -11,7 +11,11 @@ namespace klinika.Model
         public string componentName { get; set; }
 
         public string componentDescription { get; set; }
-        
 
+        public Component(string componentName, string componentDescription)
+        {
+            this.componentName = componentName;
+            this.componentDescription = componentDescription;
+        }
     }
 }

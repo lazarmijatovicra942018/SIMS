@@ -6,7 +6,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Klinika.ViewManager
 {
@@ -24,12 +27,15 @@ namespace Klinika.ViewManager
     /// </summary>
     public partial class UserPage : Page
     {
+       
 
         public static ObservableCollection<Medicine> medicines { get; set; }
 
-        private List<Medicine> medicineList { get; set; }
+        
+
 
         private static MedicineController _medicineController;
+        private UserController _userController;
 
         public UserPage()
         {
@@ -37,122 +43,260 @@ namespace Klinika.ViewManager
 
             var app = Application.Current as App;
             _medicineController = app.MedicineController;
-
-
+            _userController = app.UserController;
             this.DataContext = this;
-
-            medicineList = _medicineController.GetAllApprovedMedication();
-
-            if (medicineList == null)
-            {
-                medicineList = new List<Medicine>();
-            }
-
-            medicines = _medicineController.PutListInObservableCollection(medicineList);
-            dataGridMedicine.ItemsSource = medicines;
-
-
-
+            LoadApprovedMedcineToObservableCollection();
+            MenagerVisible();
+            
+          
 
         }
 
-        private void dataGridSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+       
+
+      
+
+        
+
+        public void MenagerVisible()
         {
+            if (_userController.GetActiveUser.userType == klinika.Enum.UserType.Manager)
+            {
+                datePicker.Visibility = Visibility.Visible;
+                addQuantityButton.Visibility = Visibility.Visible;
+                quantityTextBox.Visibility = Visibility.Visible;
+            }
 
         }
 
-        private void ChangedSort(object sender, SelectionChangedEventArgs e)
+
+        private void SortCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            medicineList = _medicineController.MedicineListSorter(sorter.SelectedIndex, medicineList);
-            dataGridMedicine.ItemsSource = new ObservableCollection<Medicine>(medicineList);
-
-
-        }
-
-        private void FilterCombo(object sender, SelectionChangedEventArgs e)
-        {
-            searchBox.Clear();
-            searchMinBox.Clear();
-            searchMaxBox.Clear();
-
-
-            if (filter.SelectedIndex == 0)
-            {
-                MinTextBlock.Visibility = Visibility.Visible;
-                MaxTextBlock.Visibility = Visibility.Visible;
-
-                searchMaxBox.Visibility = Visibility.Visible;
-                searchMinBox.Visibility = Visibility.Visible;
-
-
-            }
-            else
-            {
-                MinTextBlock.Visibility = Visibility.Hidden;
-                MaxTextBlock.Visibility = Visibility.Hidden;
-
-                searchMaxBox.Visibility = Visibility.Hidden;
-                searchMinBox.Visibility = Visibility.Hidden;
-
-
-
-            }
-
-            if (filter.SelectedIndex > 0)
-            {
-                searchBox.Visibility = Visibility.Visible;
-
-
-            }
-            else
-            {
-                searchBox.Visibility = Visibility.Hidden;
-            }
-
-
-
-
-
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-
-            if (searchBox.Text != "")
-            {
-
-
-                dataGridMedicine.ItemsSource = _medicineController.SearchBy(filter.SelectedIndex, medicineList, searchBox.Text);
-
-
-            }
-            else if (((searchMinBox.Text + searchMaxBox.Text) != "") && Regex.IsMatch((searchMinBox.Text + searchMaxBox.Text), @"^\d+$") ){
-                dataGridMedicine.ItemsSource = _medicineController.SearchByPrice(medicineList, searchMinBox.Text, searchMaxBox.Text);
-
-            }
-            else
-            {
-                dataGridMedicine.ItemsSource = medicines;
-
-            }
+            SortMedicines();
         }
 
         private void dataGridSMedicine_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            QuantityCheck();
+
             if (dataGridMedicine.SelectedItem != null)
             {
-                Sastojci.IsEnabled = true;
+                MakeButtonsEnabled();
+            }
+
+        }
+
+        private void MakeButtonsEnabled()
+        {
+
+            componentsButton.IsEnabled=true;
+        }
+
+        private void MakeButtonsDisabled()
+        {
+            addQuantityButton.IsEnabled = false;
+            componentsButton.IsEnabled = false;
+            dataGridMedicine.SelectedItem = null;
+            quantityTextBox.Clear();
+            datePicker = new DatePicker();
+        }
+
+
+
+
+        private void FilterCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SerchBoxVisibility();
+            ClearAllTextFileds();
+            FilterMedicines();
+        }
+
+        private void SerchBoxVisibility()
+        {
+            if(filterCombo.SelectedIndex == 0)
+            {
+                searchTextBox.Visibility = Visibility.Hidden;
+                searchMinTextBox.Visibility = Visibility.Visible;
+                searchMaxTextBox.Visibility = Visibility.Visible;
+                searchMaxTextBlock.Visibility =Visibility.Visible;
+                searchMinTextBlock.Visibility = Visibility.Visible;
+            
+            }
+            else
+            {
+                searchTextBox.Visibility = Visibility.Visible;
+                searchMinTextBox.Visibility = Visibility.Hidden;
+                searchMaxTextBox.Visibility = Visibility.Hidden;
+                searchMaxTextBlock.Visibility = Visibility.Hidden;
+                searchMinTextBlock.Visibility = Visibility.Hidden;
+
+
             }
         }
-        private void Sastojci_Click(object sender, RoutedEventArgs e)
+
+        public void ClearAllTextFileds()
+        {
+            searchMaxTextBox.Clear();
+            searchMinTextBox.Clear();
+            searchTextBox.Clear();
+            
+
+        }
+
+        private void LoadApprovedMedcineToObservableCollection()
+        {
+            medicines = _medicineController.GetAllApprovedMedicines();
+            FilterMedicines();
+        }
+
+
+
+        private void SortMedicines()
+        {
+            if (sorterCombo.SelectedIndex != -1)
+            {
+
+                
+                medicines = new ObservableCollection<Medicine>(_medicineController.MedicineListSorter(sorterCombo.SelectedIndex, medicines.ToList()));
+            }
+            dataGridMedicine.ItemsSource = medicines;
+        }
+
+
+
+
+        public void FilterMedicines()
+        {
+            if (filterCombo.SelectedIndex != -1 )
+            {
+              
+                if (!string.IsNullOrEmpty(searchTextBox.Text))
+                {
+                    medicines = _medicineController.SearchBy(filterCombo.SelectedIndex, medicines.ToList(), searchTextBox.Text.ToString());
+                }else if(PriceCheck())
+                {
+                    medicines = _medicineController.SearchByPrice(medicines.ToList(), searchMinTextBox.Text, searchMaxTextBox.Text);     
+                }
+            }
+
+
+            SortMedicines();
+        }
+
+        public bool PriceCheck()
+        {
+            if(string.IsNullOrEmpty(searchMaxTextBox.Text + searchMinTextBox.Text)){
+                return false;
+
+            }else if(!Regex.IsMatch(searchMaxTextBox.Text + searchMinTextBox.Text, @"^\d+$")){
+
+                MessageBox.Show("Cena mora biti izrazena brojevima .");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
+
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            LoadApprovedMedcineToObservableCollection();   
+          
+        }
+
+        private void addQuantityButton_Click(object sender, RoutedEventArgs e)
+        {
+            AddQuantityToMedicine();
+            MakeButtonsDisabled();
+            LoadApprovedMedcineToObservableCollection();
+        }
+
+        private void ComponentsButton_Click(object sender, RoutedEventArgs e)
         {
             Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
             ComponentsWindow componentsWindow = new ComponentsWindow(selectedMedicine);
             componentsWindow.Show();
-           
+
+            MakeButtonsDisabled();
+        }
+
+        private void quantityTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+                 QuantityCheck();
+                 CheckIfTimeIsPassed();
+        }
+
+
+        private void QuantityCheck()
+        {
+
+                if (string.IsNullOrEmpty(quantityTextBox.Text))
+                {
+                    addQuantityButton.IsEnabled = false;
+                    return;
+
+                 }else if (!Regex.IsMatch(quantityTextBox.Text + searchMinTextBox.Text, @"^\d+$"))
+                {
+
+                     addQuantityButton.IsEnabled = false;
+                     MessageBox.Show("Kolicina mora biti izrazena brojevima .");
+                }
+                else if(dataGridMedicine.SelectedItems.Count ==1)
+                {
+                     addQuantityButton.IsEnabled = true;
+                }
+            
+                
 
         }
+
+        private void AddQuantityToMedicine()
+        {
+            if (datePicker.SelectedDate == null)
+            {
+          
+        
+                _medicineController.AddQuantity((Medicine)dataGridMedicine.SelectedItem, int.Parse(quantityTextBox.Text));
+            
+            }
+            else
+            {
+
+                _medicineController.AddQuantityWithTime((Medicine)dataGridMedicine.SelectedItem, int.Parse(quantityTextBox.Text), (DateTime)datePicker.SelectedDate);
+
+
+            }
+        }
+
+        
+
+
+       
+        private void datePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CheckIfTimeIsPassed();
+        }
+    
+        public void CheckIfTimeIsPassed()
+        {
+            if (datePicker.SelectedDate == null)
+            {
+                
+            }
+             else if ((DateTime)datePicker.SelectedDate < DateTime.Now)
+            {
+                 MessageBox.Show("Vreme koje ste izabrali je proslo .");
+             
+                addQuantityButton.IsEnabled=false;
+            }
+        }
+
+      
+
     }
 }

@@ -29,18 +29,17 @@ namespace Klinika.Controller
         public void SaveMedicines(List<Medicine> partialMedicalList) => _MedicineService.SaveMedicines(partialMedicalList);
 
         public void SaveChangedMedicine(Medicine changedMedicine) => _MedicineService.SaveChangedMedicine(changedMedicine);
- 
 
+        public void SaveNewMedicine(Medicine medicine) => _MedicineService.SaveNewMedicine(medicine);
 
-
+       
         public List<Medicine> MedicineListSorter(int sortChoise, List<Medicine> medicineList) => _MedicineService.MedicineListSorter(sortChoise, medicineList);
 
-        public IEnumerable<Medicine> SearchBy(int searchableitem, List<Medicine> medicineList, string searchBoxText) => _MedicineService.SearchBy(searchableitem, medicineList, searchBoxText);
+        public ObservableCollection<Medicine> SearchBy(int searchableitem, List<Medicine> medicineList, string searchBoxText) => _MedicineService.SearchBy(searchableitem, medicineList, searchBoxText);
 
-        public IEnumerable<Medicine> SearchByPrice(List<Medicine> medicineList, string minPrice, string maxPrice) => _MedicineService.SearchByPrice( medicineList, minPrice, maxPrice);
+        public ObservableCollection<Medicine> SearchByPrice(List<Medicine> medicineList, string minPrice, string maxPrice) => _MedicineService.SearchByPrice( medicineList, minPrice, maxPrice);
 
-        public  List<Medicine> GetAllApprovedMedication() => _MedicineService.GetAllApprovedMedication();
-
+        
 
         public List<Medicine> GetAllMedicationWaitingForApproval() => _MedicineService.GetAllMedicationWaitingForApproval();
 
@@ -57,6 +56,10 @@ namespace Klinika.Controller
         public ObservableCollection<Medicine> GetAllApprovedMedicines() => _MedicineService.GetAllApprovedMedicines();
 
         public ObservableCollection<Medicine> GetAllADeclinedMedicines() => _MedicineService.GetAllADeclinedMedicines();
+
+        public void AddQuantity(Medicine selectedMedicine, int quantity) => _MedicineService.AddQuantity(selectedMedicine, quantity);
+
+        public void AddQuantityWithTime(Medicine selectedMedicine, int quantity, DateTime timeInterval) => _MedicineService.AddQuantityWithTime(selectedMedicine, quantity, timeInterval);
     }
 
 
