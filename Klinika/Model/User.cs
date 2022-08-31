@@ -1,36 +1,74 @@
 ﻿using klinika.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klinika.Model
 {
-    public class User 
+    public class User
     {
 
 
-        public string name { get; set; }
+        public string Name; 
 
-        public string lastName { get; set; }
+        private string LastName;
+
+        private string Password;
+
+        private string Jmbg;
+
+        private string Email;
+
+        private string PhoneNumber;
+
+        private UserType userTypE;
+
+        private bool IsBaned;
 
 
-        public string password { get; set; }
 
+        public string name { 
+            get { return Name; } 
+            set { Name = value; } 
+        }
+        public string lastName
+        {
+            get { return LastName; }
+            set { LastName = value; }
+        }
 
-        public string jmbg { get; set; }
+        public string password
+        {
+            get { return Password; }
+            set { Password = value; }
+        }
 
-        public string email { get; set; }
+        public string jmbg
+        {
+            get { return Jmbg; }
+            set { Jmbg = value; }
+        }
 
-      
-      
+        public string email
+        {
+            get { return Email; }
+            set { Email = value; }
+        }
 
-        public string phoneNumber { get; set; }
+        public string phoneNumber
+        {
+            get { return PhoneNumber; }
+            set { PhoneNumber = value; }
+        }
 
-        public UserType userType { get; set; }
+        public UserType userType { 
+            get { return userTypE; } 
+            set { userTypE = value; } 
+        }
 
-        public bool isBaned { get; set; }
+        public bool isBaned
+        {
+            get { return IsBaned; }
+            set { IsBaned = value; }
+
+        }
 
         public User(string name, string lastName, string password, string jmbg, string email, string phoneNumber, UserType userType)
         {
@@ -42,7 +80,7 @@ namespace Klinika.Model
             this.phoneNumber = phoneNumber;
             this.userType = userType;
             this.isBaned = false;
-         
+
         }
 
         override

@@ -1,45 +1,119 @@
 ﻿using Klinika.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace klinika.Model
 {
     public class Medicine
     {
-        public string id { get; set; }
+        private string Id;
 
-        public string name { get; set; }
+        private string Name;
 
-        public string manufactur { get; set; }
+        private string Manufactur;
 
-        public IDictionary<string, Component> components { get; set; }
+        private IDictionary<string, Component> Components;
 
-        public int quantity { get; set; }
+        private int Quantity;
 
-        public double price { get; set; }
+        private double Price;
 
+        private bool IsDeclined;
 
-
-     
-        public bool isDeclined {get; set;}
-
-        public bool isApproved { get; set; }
+        private bool IsApproved;
 
 
-        public List<User> ApprovedByUsers { get; set; } 
+        private List<User> approvedByUsers;
 
-        public User DeclinedByUsers { get; set; }
-        
-        public string DeclineDescription { get; set; }
+        private User declinedByUsers;
 
-        public DateTime dateForAddingQuantities { get; set; }
+        private string declineDescription;
 
-        public int quantityForAdding { get; set; }  
+        private DateTime DateForAddingQuantities;
 
-        public Medicine(string id, string name, string manufactur, IDictionary<string, Component> components, int quantity, double price )
+        private int QuantityForAdding;
+
+
+   
+        public User DeclinedByUsers
+        {
+            get { return declinedByUsers; }
+            set { declinedByUsers = value; }
+        }
+
+        public string id { 
+            get { return Id; } 
+            set { Id = value; } 
+        }
+
+        public string name
+        {
+            get { return Name; }
+            set { Name = value; }
+        }
+
+        public string manufactur
+        {
+            get { return Manufactur; }
+            set { Manufactur = value; }
+        }
+
+        public IDictionary<string, Component> components
+        {
+            get { return Components; }
+            set { Components = value; }
+        }
+
+        public int quantity
+        {
+            get { return Quantity; }
+            set { Quantity = value; }
+        }
+
+        public double price
+        {
+            get { return Price; }
+            set { Price = value; }
+        }
+
+        public bool isDeclined
+        {
+            get { return IsDeclined; }
+            set { IsDeclined = value; }
+        }
+
+        public bool isApproved
+        {
+            get { return IsApproved; }
+            set { IsApproved = value; }
+        }
+
+        public List<User> ApprovedByUsers
+        {
+            get { return approvedByUsers;  }
+            set { approvedByUsers = value; }
+        }
+
+        public string DeclineDescription
+        {
+            get { return declineDescription; }
+            set { declineDescription = value; }
+        }
+
+        public DateTime dateForAddingQuantities
+        {
+            get { return DateForAddingQuantities; }
+            set { DateForAddingQuantities = value; }
+        }
+
+        public int quantityForAdding
+        {
+            get { return QuantityForAdding; }
+            set { QuantityForAdding = value; }
+        }
+
+
+        public Medicine(string id, string name, string manufactur, IDictionary<string, Component> components, int quantity, double price)
         {
             this.id = id;
             this.name = name;
@@ -53,7 +127,7 @@ namespace klinika.Model
             DeclinedByUsers = null;
             DeclineDescription = null;
             dateForAddingQuantities = new DateTime();
-            quantityForAdding = 0;  
+            quantityForAdding = 0;
         }
 
         public Medicine()

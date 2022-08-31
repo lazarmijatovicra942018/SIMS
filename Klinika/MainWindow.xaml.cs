@@ -2,19 +2,7 @@
 using Klinika.Controller;
 using Klinika.ViewManager;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Klinika
 {
@@ -40,7 +28,7 @@ namespace Klinika
             string returnMessage = _userController.LoginValidationByEmailAndPassword(email.Text, password.Text);
             if (returnMessage == "logged")
             {
-               
+
                 LoggedIn();
 
 
@@ -59,10 +47,11 @@ namespace Klinika
 
         private void MessagesNotLoggedInCorrectly(string returnMessage)
         {
-            if(returnMessage == "notExist")
+            if (returnMessage == "notExist")
             {
                 MessageBox.Show("Email  nije validan .");
-            }else if(returnMessage == "wrongPassword")
+            }
+            else if (returnMessage == "wrongPassword")
             {
                 MessageBox.Show("Sifra  nije pravilno napisana .");
 
@@ -107,12 +96,12 @@ namespace Klinika
         private void ButtonLogin(object sender, RoutedEventArgs e)
         {
 
-            
-             LoginFunction();
+
+            LoginFunction();
 
         }
 
-      
+
     }
 }
 

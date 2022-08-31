@@ -1,10 +1,8 @@
 ﻿using klinika.Model;
 using Klinika.Repository;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Klinika.Service
 {
@@ -18,7 +16,7 @@ namespace Klinika.Service
         public ComponentService(ComponentRepository componentRepository)
         {
             _ComponentRepo = componentRepository;
-            
+
 
         }
 
@@ -29,6 +27,42 @@ namespace Klinika.Service
 
         public void SaveNewMedicine(Component component) => _ComponentRepo.SaveNewItem(component);
 
-        public void DeleteMedicin(Component component) => _ComponentRepo.Delete(component);
+        public void DeleteMedicin(Component component, System.Collections.ObjectModel.ObservableCollection<Component> components) => _ComponentRepo.Delete(component);
+        
+        public IDictionary<string, Component> ConvertObservableCollectionToIDictionary(System.Collections.ObjectModel.ObservableCollection<Component> components)
+        {
+            IDictionary<string, Component> componentsIDictionary = new Dictionary<string, Component>();
+
+            foreach (Component component in components)
+            {
+                componentsIDictionary.Add(component.componentName, component);
+            }
+
+            return componentsIDictionary;
+
+        }
+
+
+         public System.Collections.ObjectModel.ObservableCollection<Component> AddComponent(string componentName , string componentDescription, ObservableCollection<Component> components)
+        {
+
+            Component component = new Component(componentName, componentDescription);
+            components.Add(component);
+
+            return components;
+        }
+
+
+        public System.Collections.ObjectModel.ObservableCollection<Component> DeleteComponent(Component component , ObservableCollection<Component> components)
+        {
+            components.Remove(component);
+            return components;
+        }
+
+        public void Message()
+        {
+            MessageBox.Show("BozicJeBozicJe");
+        }
+
     }
 }

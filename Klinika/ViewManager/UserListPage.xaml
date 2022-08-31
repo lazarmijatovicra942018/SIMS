@@ -35,12 +35,12 @@
         </Grid>
         <Grid Grid.Row="1">
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
-                <ComboBox SelectionChanged="ChangedSort" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="sortCombo" >
+                <ComboBox SelectionChanged="ChangedSort_SelectionChanged" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="sortCombo" >
                     <ComboBoxItem Content="imenu " HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="prezimenu" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 </ComboBox>
-                <ComboBox SelectionChanged="ChangedFilter" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="filterCombo" >
+                <ComboBox SelectionChanged="ChangedFilter_SelectionChanged" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="filterCombo" >
                     <ComboBoxItem Content="Farmaceut" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="Menadzer" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="Doktor " HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -52,6 +52,10 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="554*"/>
+                <ColumnDefinition Width="247*"/>
+            </Grid.ColumnDefinitions>
 
 
 

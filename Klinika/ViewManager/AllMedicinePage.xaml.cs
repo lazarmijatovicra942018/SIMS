@@ -1,21 +1,11 @@
 ﻿using klinika.Model;
 using Klinika.Controller;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Klinika.ViewManager
 {
@@ -51,7 +41,7 @@ namespace Klinika.ViewManager
 
         }
 
-       
+
 
         private void ChangedSort(object sender, SelectionChangedEventArgs e)
         {
@@ -144,7 +134,7 @@ namespace Klinika.ViewManager
                     Description.Visibility = Visibility.Visible;
                     DescriptionLabel.Visibility = Visibility.Visible;
                     Description.Text = selectedMedicine.DeclineDescription;
-                    DescriptionLabel.Text = "      " + selectedMedicine.DeclinedByUsers.ToString()??"";
+                    DescriptionLabel.Text = "      " + selectedMedicine.DeclinedByUsers.ToString() ?? "";
 
 
                 }
@@ -175,20 +165,21 @@ namespace Klinika.ViewManager
         private void ShowCombo(object sender, SelectionChangedEventArgs e)
         {
 
-            if(show.SelectedIndex == 1)
+            if (show.SelectedIndex == 1)
             {
-               medicines = _medicineController.GetAllApprovedMedicines();
+                medicines = _medicineController.GetAllApprovedMedicines();
                 dataGridMedicine.ItemsSource = medicines;
 
-            }else if(show.SelectedIndex == 2)
+            }
+            else if (show.SelectedIndex == 2)
             {
-                medicines =_medicineController.GetAllADeclinedMedicines();
+                medicines = _medicineController.GetAllADeclinedMedicines();
                 dataGridMedicine.ItemsSource = medicines;
 
             }
             else
             {
-                medicines  =_medicineController.GetAllApprovedAndDeclinedMedicines();
+                medicines = _medicineController.GetAllApprovedAndDeclinedMedicines();
                 dataGridMedicine.ItemsSource = medicines;
 
 

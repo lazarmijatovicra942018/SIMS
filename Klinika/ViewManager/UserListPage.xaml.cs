@@ -1,21 +1,10 @@
 ﻿using klinika.Enum;
 using Klinika.Controller;
 using Klinika.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Klinika.ViewManager
 {
@@ -34,11 +23,11 @@ namespace Klinika.ViewManager
             var app = Application.Current as App;
             _userController = app.UserController;
             this.DataContext = this;
-            
-            LoadUsersToObservableList();
+
+            LoadUsers();
         }
 
-       
+        #region DataGrid
 
         private void dataGridUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -49,6 +38,90 @@ namespace Klinika.ViewManager
 
         }
 
+        #endregion
+
+
+        #region Filter
+
+        private void ChangedFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            FilterUsers();
+
+        }
+
+        public void FilterUsers()
+        {
+            users = _userController.FilteringUsers((int)filterCombo.SelectedIndex);
+
+            SortUsers();
+
+        }
+
+        #endregion
+
+        #region Sort
+        private void ChangedSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SortUsers();
+
+        }
+
+
+        public void SortUsers()
+        {
+            users = new ObservableCollection<User>(_userController.UserSorting((int)sortCombo.SelectedIndex, users.ToList()));
+
+            dataGridUsers.ItemsSource = users;
+
+        }
+
+        #endregion
+
+        #region LoadUsers
+        public void LoadUsers()
+        {
+
+            if (filterCombo.SelectedIndex < 0)
+            {
+                users = _userController.GetAllUsersInObservableCollection();
+                dataGridUsers.ItemsSource = users;
+                SortUsers();
+            }
+            else
+            {
+                FilterUsers();
+            }
+
+
+        }
+
+        #endregion
+
+
+        #region BlockUnblock
+        private void Blocade_Click(object sender, RoutedEventArgs e)
+        {
+            User selectedUser = (User)dataGridUsers.SelectedItem;
+
+            _userController.BlockUser(selectedUser);
+            LoadUsers();
+            DisableButton();
+
+        }
+        private void UnBlocade_Click(object sender, RoutedEventArgs e)
+        {
+            User selectedUser = (User)dataGridUsers.SelectedItem;
+
+            _userController.UnBlockUser(selectedUser);
+            LoadUsers();
+            DisableButton();
+
+        }
+
+        #endregion
+
+        #region EnableDisable
         private void EnableButon(User selectedUser)
         {
             if ((UserType)selectedUser.userType == UserType.Manager)
@@ -85,71 +158,7 @@ namespace Klinika.ViewManager
 
         }
 
-        private void ChangedFilter(object sender, SelectionChangedEventArgs e)
-        {
-            
-            FilterUsers();
+        #endregion
 
-        }
-
-        public void FilterUsers()
-        {
-            users = _userController.FilteringUsers((int)filterCombo.SelectedIndex);
-            
-            SortUsers();
-
-        }
-
-        private void ChangedSort(object sender, SelectionChangedEventArgs e)
-        {
-            SortUsers();
-
-        }
-
-
-        public void SortUsers()
-        {
-            users = new ObservableCollection<User>(_userController.UserSorting((int)sortCombo.SelectedIndex, users.ToList()));
-
-            dataGridUsers.ItemsSource = users;
-           
-        }
-
-        private void Blocade_Click(object sender, RoutedEventArgs e)
-        {
-            User selectedUser = (User)dataGridUsers.SelectedItem;
-
-            _userController.BlockUser(selectedUser);
-            LoadUsersToObservableList();
-            DisableButton();
-
-        }
-
-        public void LoadUsersToObservableList()
-        {
-            
-            if (filterCombo.SelectedIndex < 0)
-            {
-                users = _userController.GetAllUsersInObservableCollection();
-                dataGridUsers.ItemsSource = users;
-                SortUsers();
-            }
-            else
-            {
-                FilterUsers();
-            }
-
-
-        }
-
-        private void UnBlocade_Click(object sender, RoutedEventArgs e)
-        {
-            User selectedUser = (User)dataGridUsers.SelectedItem;
-
-            _userController.UnBlockUser(selectedUser);
-            LoadUsersToObservableList();
-            DisableButton();
-
-        }
     }
 }

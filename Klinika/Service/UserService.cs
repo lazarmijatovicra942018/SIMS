@@ -1,23 +1,29 @@
 ﻿using Klinika.Model;
 using Klinika.Repository;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klinika.Service
 {
     public class UserService
     {
         private readonly UserRepository _UserRepo;
-        public   User activeUser{ 
-            get; 
-            set; 
+        
+        private User activeUser;
+        
+        public User ActiveUser
+        {
+            get { return activeUser; }
+            set { activeUser = value; }
         }
 
-        public int shutDownCounter { get; set; }
+        private int shutDownCounter;
+
+        public int ShutDownCounter
+        {
+            get { return shutDownCounter; }
+            set { shutDownCounter = value; }
+        }
 
         public UserService(UserRepository userRepository)
         {
@@ -44,43 +50,46 @@ namespace Klinika.Service
 
 
 
-        public string LoginValidation(string email , string password)
+        public string LoginValidation(string email, string password)
         {
             User
-                
-                
-                
-                
+
+
+
+
                 user = GetUserByEmail(email);
-            
-            
-            if (user == null )
+
+
+            if (user == null)
             {
                 shutDownCounter++;
                 return "notExist";
-            }else if (user.isBaned)
+            }
+            else if (user.isBaned)
             {
                 return "baned";
-            }else if (user.password.Equals(password) && user!=null)
+            }
+            else if (user.password.Equals(password) && user != null)
             {
-                    
-                    activeUser = user;
-                    shutDownCounter = 0;
-                    return "logged";
+
+                activeUser = user;
+                shutDownCounter = 0;
+                return "logged";
             }
-            else {
+            else
+            {
 
-            shutDownCounter++;
+                shutDownCounter++;
 
-             return "wrongPassword"; 
+                return "wrongPassword";
             }
 
 
-            
-            
+
+
         }
 
-        
+
 
         public ObservableCollection<User> GetAllUsersInObservableCollection()
         {
@@ -89,16 +98,16 @@ namespace Klinika.Service
             return users;
         }
 
-        public ObservableCollection<User> FilteringUsers( int userTypeIndex)
+        public ObservableCollection<User> FilteringUsers(int userTypeIndex)
         {
             List<User> users = GetAllUsers();
             ObservableCollection<User> filteredUsers = _UserRepo.PutListInObservableCollection(users);
 
-            if(userTypeIndex== 3) { return filteredUsers; }
-            
-            foreach(User user in users)
+            if (userTypeIndex == 3) { return filteredUsers; }
+
+            foreach (User user in users)
             {
-                if((int)user.userType != userTypeIndex)
+                if ((int)user.userType != userTypeIndex)
                 {
                     filteredUsers.Remove(user);
                 }
@@ -111,8 +120,9 @@ namespace Klinika.Service
         {
             if (sortChoise == 0)
             {
-                users.Sort((a,b) => a.name.CompareTo(b.name));
-            }else if(sortChoise == 1)
+                users.Sort((a, b) => a.Name.CompareTo(b.Name));
+            }
+            else if (sortChoise == 1)
             {
                 users.Sort((a, b) => a.lastName.CompareTo(b.lastName));
 
@@ -123,25 +133,25 @@ namespace Klinika.Service
         }
 
 
-        public User FindUserWithUserList(User userForFinding , List<User> userList)
+        public User FindUserWithUserList(User userForFinding, List<User> userList)
         {
-            foreach(User user in userList)
+            foreach (User user in userList)
             {
-                if(userForFinding.jmbg == user.jmbg) { return user; }
+                if (userForFinding.jmbg == user.jmbg) { return user; }
             }
             return null;
         }
-    public void BlockUser(User selectedUser)
+        public void BlockUser(User selectedUser)
         {
             List<User> userList = GetAllUsers();
             User blockedUser = FindUserWithUserList(selectedUser, userList);
             blockedUser.isBaned = true;
-            _UserRepo.Serialize(userList);       
+            _UserRepo.Serialize(userList);
 
 
         }
 
-    public void UnBlockUser(User selectedUser)
+        public void UnBlockUser(User selectedUser)
         {
             List<User> userList = GetAllUsers();
             User unBlockedUser = FindUserWithUserList(selectedUser, userList);

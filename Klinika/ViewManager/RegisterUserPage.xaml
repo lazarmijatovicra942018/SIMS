@@ -49,7 +49,7 @@
         </ComboBox>
         <Grid Grid.Row="8" Grid.Column="1">
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal" >
-                <Button  ToolTip="Registracija korsinika " Content="Registruj" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="registration" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="Registracija_Click" />
+                <Button  ToolTip="Registracija korsinika " Content="Registruj" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="registrationButton" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="Registration_Click" />
 
 
             </StackPanel>

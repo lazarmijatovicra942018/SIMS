@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Klinika.Repository
 {
@@ -19,7 +16,7 @@ namespace Klinika.Repository
 
                 if (medicine.id.Equals(id)) { return medicine; }
             }
-            return null ;
+            return null;
 
 
 
@@ -28,7 +25,7 @@ namespace Klinika.Repository
         public Medicine FindMedicineInCollectionById(string medicineId, ObservableCollection<Medicine> medicines)
         {
             Medicine medicineWithId = new Medicine();
-            foreach(Medicine medicine in medicines)
+            foreach (Medicine medicine in medicines)
             {
                 if (medicine.id.Equals(medicineId))
                 {
@@ -49,8 +46,8 @@ namespace Klinika.Repository
         {
             throw new NotImplementedException();
         }
-        
-        
-    
+
+
+
     }
 }
