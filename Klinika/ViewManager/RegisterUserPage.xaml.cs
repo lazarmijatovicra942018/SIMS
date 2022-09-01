@@ -33,12 +33,12 @@ namespace Klinika.ViewManager
 
             if (comboUserType.SelectedIndex == 0)
             {
-                _userController.SaveNewUser(new Model.User(name.Text, lastName.Text, password.Text, jmbg.Text, email.Text, phoneNumber.Text, klinika.Enum.UserType.Doctor));
+                _userController.SaveNewUser(name.Text, lastName.Text, password.Text, jmbg.Text, email.Text, phoneNumber.Text, klinika.Enum.UserType.Doctor);
 
             }
             else if (comboUserType.SelectedIndex == 1)
             {
-                _userController.SaveNewUser(new Model.User(name.Text, lastName.Text, password.Text, jmbg.Text, email.Text, phoneNumber.Text, klinika.Enum.UserType.Pharmacist));
+                _userController.SaveNewUser(name.Text, lastName.Text, password.Text, jmbg.Text, email.Text, phoneNumber.Text, klinika.Enum.UserType.Pharmacist);
 
             }
 

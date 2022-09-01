@@ -45,19 +45,13 @@ namespace Klinika.ViewManager
             AddComponent();
             _medicineController.AddNewMedicine(idTextBox.Text.ToString(), nameTextBox.Text.ToString(), manufacturTextBox.Text.ToString(), components, Int32.Parse(quantityTextBox.Text.ToString()), Double.Parse(priceTextBox.Text.ToString()));
             ClearAllTextFieldsAndList();
-           
+
 
 
 
         }
 
         #endregion
-
-   
-
-
-    
-
 
         #region ComponentsAddDelete
         private void componentDelete_Click(object sender, RoutedEventArgs e)
@@ -84,7 +78,7 @@ namespace Klinika.ViewManager
             if (componentAdd.IsEnabled)
             {
 
-                components = _componentController.AddComponent(componentNameTextBox.Text.ToString(), componentDescriptionTextBox.Text.ToString(),components);
+                components = _componentController.AddComponent(componentNameTextBox.Text.ToString(), componentDescriptionTextBox.Text.ToString(), components);
                 ClearComponentTextBoxes();
                 componentDelete.IsEnabled = false;
                 componentAdd.IsEnabled = false;
@@ -113,7 +107,6 @@ namespace Klinika.ViewManager
         }
 
         #endregion
-
 
         #region EnableDisableVisibleClear
 
@@ -146,7 +139,7 @@ namespace Klinika.ViewManager
         }
 
 
-     
+
 
         public void AddComponentButtonVisibility()
         {
@@ -176,7 +169,6 @@ namespace Klinika.ViewManager
 
 
         #endregion
-
 
         #region DataGridComponents
         private void dataGridComponents_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -258,6 +250,7 @@ namespace Klinika.ViewManager
 
 
         #endregion
+
 
     }
 }

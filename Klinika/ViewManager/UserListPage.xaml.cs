@@ -32,9 +32,15 @@ namespace Klinika.ViewManager
         private void dataGridUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             User selectedUser = (User)dataGridUsers.SelectedItem;
-            UnBlocade.IsEnabled = true;
-            Blocade.IsEnabled = true;
-            if (selectedUser != null) { EnableButon(selectedUser); };
+            if (selectedUser != null) { 
+                EnableButon(selectedUser);
+            }
+            else
+            {
+                DisableButton();
+            }
+
+
 
         }
 
@@ -64,17 +70,19 @@ namespace Klinika.ViewManager
         private void ChangedSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SortUsers();
-
         }
 
 
         public void SortUsers()
-        {
-            users = new ObservableCollection<User>(_userController.UserSorting((int)sortCombo.SelectedIndex, users.ToList()));
+        {   
 
+            users = new ObservableCollection<User>(_userController.UserSorting((int)sortCombo.SelectedIndex, users.ToList()));
             dataGridUsers.ItemsSource = users;
+            DisableButtonAndUnselectItem();
 
         }
+
+
 
         #endregion
 
@@ -84,7 +92,7 @@ namespace Klinika.ViewManager
 
             if (filterCombo.SelectedIndex < 0)
             {
-                users = _userController.GetAllUsersInObservableCollection();
+                users = _userController.GetAllUsers();
                 dataGridUsers.ItemsSource = users;
                 SortUsers();
             }
@@ -106,7 +114,7 @@ namespace Klinika.ViewManager
 
             _userController.BlockUser(selectedUser);
             LoadUsers();
-            DisableButton();
+            DisableButtonAndUnselectItem();
 
         }
         private void UnBlocade_Click(object sender, RoutedEventArgs e)
@@ -115,7 +123,7 @@ namespace Klinika.ViewManager
 
             _userController.UnBlockUser(selectedUser);
             LoadUsers();
-            DisableButton();
+            DisableButtonAndUnselectItem();
 
         }
 
@@ -128,19 +136,14 @@ namespace Klinika.ViewManager
             {
                 UnBlocade.IsEnabled = false;
                 Blocade.IsEnabled = false;
-
             }
             else
             {
-
-
                 if (selectedUser.isBaned)
                 {
                     UnBlocade.IsEnabled = true;
                     Blocade.IsEnabled = false; ;
-                }
-
-                if (!selectedUser.isBaned)
+                }else if (!selectedUser.isBaned)
                 {
                     Blocade.IsEnabled = true;
                     UnBlocade.IsEnabled = false;
@@ -150,13 +153,21 @@ namespace Klinika.ViewManager
 
         }
 
+        public void DisableButtonAndUnselectItem()
+        {
+            DisableButton();
+            dataGridUsers.SelectedItem = null;
+
+        }
+
+
         public void DisableButton()
         {
             UnBlocade.IsEnabled = false;
             Blocade.IsEnabled = false;
-
-
+            
         }
+
 
         #endregion
 

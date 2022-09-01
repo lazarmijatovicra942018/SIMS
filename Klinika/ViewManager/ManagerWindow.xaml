@@ -17,7 +17,7 @@
             <TextBlock  x:Name="ActiveUserLabel" FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="45,0,0,0"  FontSize="25"><Run Text=""/></TextBlock>
 
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
-                <Button FontFamily="Candara" Content="Odjavi se"  ToolTip=" Odjavljivanje sa naloga " Margin="10,0,0,0" Width="100" Height="30"  Background="#F8CB2E"  FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="Odjava_Click" />
+                <Button FontFamily="Candara" Content="Odjavi se"  ToolTip=" Odjavljivanje sa naloga " Margin="10,0,0,0" Width="100" Height="30"  Background="#F8CB2E"  FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="LogOutButton_Click" />
 
             </StackPanel>
         </Grid>
@@ -28,16 +28,20 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Background="#005555">
                 <StackPanel FlowDirection="LeftToRight" Orientation="Vertical">
-                    <Button Content="Odobreni lekovi" ToolTip=" Prikaz odobrenih lekova " Background="#F8CB2E"   FontFamily="Candara" Margin="5,30,5,5" Width="125"     Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click ="OdobreniLekovi_Click" />
-                    <Button Content="Registracija " ToolTip="Registracija novih korisnika ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="Registracija_Click"/>
-                    <Button Content="Svi korisnici" ToolTip=" Prikaz   odobrenih i odbijenih lekova ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="AllUsers_Click"/>
-                    <Button Content="Unos leka" ToolTip=" Unos leka ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="addMedicine_Click"/>
+                    <Button Content="Odobreni lekovi" ToolTip=" Prikaz odobrenih lekova " Background="#F8CB2E"   FontFamily="Candara" Margin="5,30,5,5" Width="125"     Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click ="UserPageButton_Click" />
+                    <Button Content="Registracija " ToolTip="Registracija novih korisnika ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="RegistrateUserButton_Click"/>
+                    <Button Content="Svi korisnici" ToolTip=" Prikaz   odobrenih i odbijenih lekova ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="AllUsersButton_Click"/>
+                    <Button Content="Unos leka" ToolTip=" Unos leka ." Background="#F8CB2E" FontFamily="Candara" Margin="5,5,5,5" Width="125" Height="30"     FontSize="15" FontWeight="Bold"  BorderBrush="{x:Null}" Click="AddMedicineButton_Click"/>
 
 
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1"  Background="#F7FF93">
-                <Frame x:Name="Sadrzaj" NavigationUIVisibility="Hidden"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="294*"/>
+                    <ColumnDefinition Width="31*"/>
+                </Grid.ColumnDefinitions>
+                <Frame x:Name="Content" NavigationUIVisibility="Hidden" Grid.ColumnSpan="2"/>
 
             </Grid>
 

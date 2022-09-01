@@ -14,7 +14,7 @@ namespace Klinika.ViewManager
         {
             InitializeComponent();
 
-            Sadrzaj.NavigationService.Navigate(new UserPage());
+            Content.NavigationService.Navigate(new UserPage());
             var app = Application.Current as App;
             _userController = app.UserController;
 
@@ -24,7 +24,7 @@ namespace Klinika.ViewManager
 
         }
 
-        private void Odjava_Click(object sender, RoutedEventArgs e)
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             _userController.LogOut();
             MainWindow mainWindow = new MainWindow();
@@ -32,39 +32,26 @@ namespace Klinika.ViewManager
             this.Hide();
         }
 
-
-
-
-
-
-        private void OdobreniLekovi_Click(object sender, RoutedEventArgs e)
+        private void UserPageButton_Click(object sender, RoutedEventArgs e)
         {
-            Sadrzaj.NavigationService.Navigate(new UserPage());
+            Content.NavigationService.Navigate(new UserPage());
         }
 
-        private void Registracija_Click(object sender, RoutedEventArgs e)
+        private void RegistrateUserButton_Click(object sender, RoutedEventArgs e)
         {
-            Sadrzaj.NavigationService.Navigate(new RegisterUserPage());
+            Content.NavigationService.Navigate(new RegisterUserPage());
 
         }
 
-        private void AllUsers_Click(object sender, RoutedEventArgs e)
+        private void AllUsersButton_Click(object sender, RoutedEventArgs e)
         {
-            Sadrzaj.NavigationService.Navigate(new UserListPage());
+            Content.NavigationService.Navigate(new UserListPage());
 
         }
 
-
-        private void Validacija_Click(object sender, RoutedEventArgs e)
+        private void AddMedicineButton_Click(object sender, RoutedEventArgs e)
         {
-            Sadrzaj.NavigationService.Navigate(new ValidationMedicinePage());
-
-
-        }
-
-        private void addMedicine_Click(object sender, RoutedEventArgs e)
-        {
-            Sadrzaj.NavigationService.Navigate(new RegisterMedicinePage());
+            Content.NavigationService.Navigate(new RegisterMedicinePage());
         }
     }
 }

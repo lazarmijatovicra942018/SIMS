@@ -1,7 +1,9 @@
-﻿using Klinika.Model;
+﻿using klinika.Enum;
+using Klinika.Model;
 using Klinika.Repository;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace Klinika.Service
 {
@@ -31,14 +33,31 @@ namespace Klinika.Service
 
         }
 
-        public List<User> GetAllUsers() => _UserRepo.GetAll();
+        #region Get
 
         public User GetUserByJmbg(string jmbg) => _UserRepo.GetByJmbg(jmbg);
 
+
         public User GetUserByEmail(string email) => _UserRepo.GetByEmail(email);
 
-        public void SaveNewUser(User user) => _UserRepo.SaveNewItem(user);
+        public ObservableCollection<User> GetAllUsers()
+        {
+            ObservableCollection<User> users = new ObservableCollection<User>(_UserRepo.GetAll());
 
+            return users;
+        }
+
+        #endregion
+
+        #region Save
+        public void SaveNewUser(string name, string lastName, string password, string jmbg, string email, string phoneNumber, UserType userType)
+        {   User user = new User(name, lastName, password, jmbg, email, phoneNumber, userType);
+            _UserRepo.SaveNewItem(user);
+        }
+
+        #endregion
+
+        #region Log
         public void LogOut()
         {
             activeUser = null;
@@ -46,62 +65,68 @@ namespace Klinika.Service
 
         }
 
-        public void DeleteUser(User user) => _UserRepo.Delete(user);
-
-
-
-        public string LoginValidation(string email, string password)
+     
+      
+        public bool LoginValidation(string email, string password)
         {
-            User
-
-
-
-
-                user = GetUserByEmail(email);
+            User user = GetUserByEmail(email);
 
 
             if (user == null)
             {
                 shutDownCounter++;
-                return "notExist";
+                MessagesNotLoggedInCorrectly("notExist");
             }
             else if (user.isBaned)
             {
-                return "baned";
+                shutDownCounter++;
+                MessagesNotLoggedInCorrectly("baned");
             }
             else if (user.password.Equals(password) && user != null)
             {
 
                 activeUser = user;
                 shutDownCounter = 0;
-                return "logged";
+                return true;
             }
             else
             {
 
                 shutDownCounter++;
 
-                return "wrongPassword";
+                MessagesNotLoggedInCorrectly("wrongPassword");
             }
 
-
-
-
+            return false;
         }
 
 
-
-        public ObservableCollection<User> GetAllUsersInObservableCollection()
+        private void MessagesNotLoggedInCorrectly(string returnMessage)
         {
-            ObservableCollection<User> users = new ObservableCollection<User>(GetAllUsers());
+            if (returnMessage == "notExist")
+            {
+                MessageBox.Show("Email  nije validan .");
+            }
+            else if (returnMessage == "wrongPassword")
+            {
+                MessageBox.Show("Sifra  nije pravilno napisana .");
 
-            return users;
+            }
+            else if (returnMessage == "baned")
+            {
+                MessageBox.Show("Korisnik je blokiran .");
+
+            }
         }
+
+        #endregion
+
+        #region Filter
 
         public ObservableCollection<User> FilteringUsers(int userTypeIndex)
         {
-            List<User> users = GetAllUsers();
-            ObservableCollection<User> filteredUsers = _UserRepo.PutListInObservableCollection(users);
+            List<User> users = _UserRepo.GetAll();
+            ObservableCollection<User> filteredUsers = new ObservableCollection<User>(users);
 
             if (userTypeIndex == 3) { return filteredUsers; }
 
@@ -116,6 +141,10 @@ namespace Klinika.Service
             return filteredUsers;
         }
 
+        #endregion
+
+        #region Sort
+
         public List<User> UserSorting(int sortChoise, List<User> users)
         {
             if (sortChoise == 0)
@@ -126,41 +155,29 @@ namespace Klinika.Service
             {
                 users.Sort((a, b) => a.lastName.CompareTo(b.lastName));
 
-
             }
 
             return users;
         }
 
+        #endregion
 
-        public User FindUserWithUserList(User userForFinding, List<User> userList)
-        {
-            foreach (User user in userList)
-            {
-                if (userForFinding.jmbg == user.jmbg) { return user; }
-            }
-            return null;
-        }
+        #region BlockUnblock
+
         public void BlockUser(User selectedUser)
         {
-            List<User> userList = GetAllUsers();
-            User blockedUser = FindUserWithUserList(selectedUser, userList);
-            blockedUser.isBaned = true;
-            _UserRepo.Serialize(userList);
-
+            selectedUser.isBaned = true;
+            _UserRepo.SaveChangedUser(selectedUser);
 
         }
 
         public void UnBlockUser(User selectedUser)
         {
-            List<User> userList = GetAllUsers();
-            User unBlockedUser = FindUserWithUserList(selectedUser, userList);
-            unBlockedUser.isBaned = false;
-            _UserRepo.Serialize(userList);
-
+            selectedUser.isBaned = false;
+            _UserRepo.SaveChangedUser(selectedUser);
 
         }
 
-
+        #endregion
     }
 }

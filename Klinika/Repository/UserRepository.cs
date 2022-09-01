@@ -1,5 +1,6 @@
 ﻿using Klinika.Model;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Klinika.Repository
 {
@@ -43,6 +44,25 @@ namespace Klinika.Repository
             filePath = "user.json";
         }
 
+
+        public void SaveChangedUser(User changedUser)
+        {
+
+            List<User> userList = GetAll();
+            foreach (User user in userList.ToList())
+            {
+                if (changedUser.jmbg == user.jmbg)
+                {
+                    userList.Remove(user);
+
+                }
+            }
+
+            if (changedUser != null) { userList.Add(changedUser); }
+
+            Serialize(userList);
+
+        }
 
     }
 }

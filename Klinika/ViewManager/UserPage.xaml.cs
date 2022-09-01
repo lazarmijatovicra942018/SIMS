@@ -16,6 +16,7 @@ namespace Klinika.ViewManager
     {
 
 
+
         public static ObservableCollection<Medicine> medicines { get; set; }
 
 
@@ -49,11 +50,14 @@ namespace Klinika.ViewManager
             {
                 MakeButtonsEnabled();
             }
+            else
+            {
+                MakeButtonsDisabledandClearFields();
+            }
 
         }
 
         #endregion
-
 
         #region LoadMedicines
 
@@ -64,7 +68,6 @@ namespace Klinika.ViewManager
         }
 
         #endregion
-
 
         #region ViewComponents
         private void ComponentsButton_Click(object sender, RoutedEventArgs e)

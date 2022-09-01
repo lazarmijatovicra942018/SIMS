@@ -32,159 +32,264 @@ namespace Klinika.ViewManager
 
             this.DataContext = this;
 
-            medicines = _medicineController.GetAllApprovedAndDeclinedMedicines();
+            LoadApprovedandDeclinedMedcineToObservableCollection();
 
+
+        }
+
+        #region LoadMedicines
+
+        private void LoadApprovedandDeclinedMedcineToObservableCollection()
+        {
+            ShowMedicines();
+        }
+
+        #endregion
+
+        #region SortMedicine
+        private void SortComboSelection_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            SortMedicines();
+        }
+
+
+
+        private void SortMedicines()
+        {
+            if (sorterCombo.SelectedIndex != -1)
+            {
+                medicines = new ObservableCollection<Medicine>(_medicineController.MedicineListSorter(sorterCombo.SelectedIndex, medicines.ToList()));
+            }
             dataGridMedicine.ItemsSource = medicines;
-
-
-
-
-        }
-
-
-
-        private void ChangedSort(object sender, SelectionChangedEventArgs e)
-        {
-
-            medicineList = _medicineController.MedicineListSorter(sorter.SelectedIndex, medicines.ToList());
-            dataGridMedicine.ItemsSource = new ObservableCollection<Medicine>(medicineList);
-
+            dataGridMedicine.SelectedItem = null;
+            HideDeclineReason();
 
         }
 
-        private void FilterCombo(object sender, SelectionChangedEventArgs e)
+
+
+
+
+        #endregion
+
+        #region Filter
+        private void FilterCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            searchBox.Clear();
-            searchMinBox.Clear();
-            searchMaxBox.Clear();
-
-
-            if (filter.SelectedIndex == 0)
-            {
-                MinTextBlock.Visibility = Visibility.Visible;
-                MaxTextBlock.Visibility = Visibility.Visible;
-
-                searchMaxBox.Visibility = Visibility.Visible;
-                searchMinBox.Visibility = Visibility.Visible;
-
-
-            }
-            else
-            {
-                MinTextBlock.Visibility = Visibility.Hidden;
-                MaxTextBlock.Visibility = Visibility.Hidden;
-
-                searchMaxBox.Visibility = Visibility.Hidden;
-                searchMinBox.Visibility = Visibility.Hidden;
-
-
-
-            }
-
-            if (filter.SelectedIndex > 0)
-            {
-                searchBox.Visibility = Visibility.Visible;
-
-
-            }
-            else
-            {
-                searchBox.Visibility = Visibility.Hidden;
-            }
-
-
-
-
-
+            SerchBoxVisibility();
+            ClearAllTextFileds();
+            FilterMedicines();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+            LoadApprovedandDeclinedMedcineToObservableCollection();
 
-            if (searchBox.Text != "")
+        }
+
+        public void FilterMedicines()
+        {
+            if (filterCombo.SelectedIndex != -1)
             {
 
-
-                dataGridMedicine.ItemsSource = _medicineController.SearchBy(filter.SelectedIndex, medicines.ToList(), searchBox.Text);
-
-
+                if (!string.IsNullOrEmpty(searchTextBox.Text))
+                {
+                    medicines = _medicineController.SearchBy(filterCombo.SelectedIndex, medicines.ToList(), searchTextBox.Text.ToString());
+                }
+                else if (PriceCheck())
+                {
+                    medicines = _medicineController.SearchByPrice(medicines.ToList(), searchMinTextBox.Text, searchMaxTextBox.Text);
+                }
             }
-            else if (((searchMinBox.Text + searchMaxBox.Text) != "") && Regex.IsMatch((searchMinBox.Text + searchMaxBox.Text), @"^\d+$"))
+
+
+            SortMedicines();
+        }
+
+
+        public void ClearAllTextFileds()
+        {
+            searchMaxTextBox.Clear();
+            searchMinTextBox.Clear();
+            searchTextBox.Clear();
+
+
+        }
+
+        private void SerchBoxVisibility()
+        {
+            if (filterCombo.SelectedIndex == 0)
             {
-                dataGridMedicine.ItemsSource = _medicineController.SearchByPrice(medicines.ToList(), searchMinBox.Text, searchMaxBox.Text);
+                searchTextBox.Visibility = Visibility.Hidden;
+                searchMinTextBox.Visibility = Visibility.Visible;
+                searchMaxTextBox.Visibility = Visibility.Visible;
+                searchMaxTextBlock.Visibility = Visibility.Visible;
+                searchMinTextBlock.Visibility = Visibility.Visible;
 
             }
             else
             {
-                dataGridMedicine.ItemsSource = medicines;
+                searchTextBox.Visibility = Visibility.Visible;
+                searchMinTextBox.Visibility = Visibility.Hidden;
+                searchMaxTextBox.Visibility = Visibility.Hidden;
+                searchMaxTextBlock.Visibility = Visibility.Hidden;
+                searchMinTextBlock.Visibility = Visibility.Hidden;
+
 
             }
         }
+
+
+        #endregion
+
+        #region DataGRid
 
         private void dataGridSMedicine_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+
             if (dataGridMedicine.SelectedItem != null)
             {
-                Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
-                Sastojci.IsEnabled = true;
-
-                if (selectedMedicine.isDeclined)
-                {
-                    Description.Visibility = Visibility.Visible;
-                    DescriptionLabel.Visibility = Visibility.Visible;
-                    Description.Text = selectedMedicine.DeclineDescription;
-                    DescriptionLabel.Text = "      " + selectedMedicine.DeclinedByUsers.ToString() ?? "";
-
-
-                }
-                else
-                {
-                    Description.Visibility = Visibility.Hidden;
-                    DescriptionLabel.Visibility = Visibility.Hidden;
-
-                }
+                MakeButtonEnabled();
+                DeclineDescriptionVisibility();
 
             }
+            else
+            {
+                MakeButtonDisabled();
 
+            }
+        }
 
+        #endregion
+
+        #region DeckineReasonSHowHide
+
+        public void DeclineDescriptionVisibility()
+        {
+            Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
+
+            MakeButtonEnabled();
+
+            if (selectedMedicine.isDeclined)
+            {
+                ShowDeclinedReason();
+            }
+            else
+            {
+                HideDeclineReason();
+            }
+
+            
         }
 
 
 
-        private void Sastojci_Click(object sender, RoutedEventArgs e)
+        public void ShowDeclinedReason()
+        {
+            Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
+            Description.Visibility = Visibility.Visible;
+            DescriptionLabel.Visibility = Visibility.Visible;
+            Description.Text = selectedMedicine.DeclineDescription;
+            DescriptionLabel.Text = "      " + selectedMedicine.DeclinedByUsers.ToString() ?? "";
+        }
+
+
+        public void HideDeclineReason()
+        {
+            Description.Visibility = Visibility.Hidden;
+            DescriptionLabel.Visibility = Visibility.Hidden;
+
+        }
+
+        #endregion
+
+        #region ViewComponents
+        private void ComponentsButton_Click(object sender, RoutedEventArgs e)
         {
             Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
             ComponentsWindow componentsWindow = new ComponentsWindow(selectedMedicine);
             componentsWindow.Show();
 
+            MakeButtonDisabled();
+        }
 
+
+        private void MakeButtonEnabled()
+        {
+
+            componentsButton.IsEnabled = true;
+      
+        }
+
+        private void MakeButtonDisabled()
+        {
+
+            componentsButton.IsEnabled = false;
+            dataGridMedicine.SelectedItem = null;
+            HideDeclineReason();
 
         }
 
-        private void ShowCombo(object sender, SelectionChangedEventArgs e)
+
+
+
+        #endregion
+
+        #region ShowMedicines
+
+
+        private void ShowCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+            ShowMedicines();
+
+        }
+
+
+        public void ShowMedicines()
+        {
             if (show.SelectedIndex == 1)
             {
                 medicines = _medicineController.GetAllApprovedMedicines();
-                dataGridMedicine.ItemsSource = medicines;
 
             }
             else if (show.SelectedIndex == 2)
             {
                 medicines = _medicineController.GetAllADeclinedMedicines();
-                dataGridMedicine.ItemsSource = medicines;
-
             }
             else
             {
                 medicines = _medicineController.GetAllApprovedAndDeclinedMedicines();
-                dataGridMedicine.ItemsSource = medicines;
 
+            }
+            FilterMedicines();
 
+        }
+
+        #endregion
+
+        #region Check
+        public bool PriceCheck()
+        {
+            if (string.IsNullOrEmpty(searchMaxTextBox.Text + searchMinTextBox.Text))
+            {
+                return false;
+
+            }
+            else if (!Regex.IsMatch(searchMaxTextBox.Text + searchMinTextBox.Text, @"^\d+$"))
+            {
+
+                MessageBox.Show("Cena mora biti izrazena brojevima .");
+                return false;
+            }
+            else
+            {
+                return true;
             }
 
         }
+
+        #endregion
     }
 }

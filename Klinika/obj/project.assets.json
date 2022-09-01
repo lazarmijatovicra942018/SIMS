@@ -270,11 +270,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DLAKAVI TALAMBAS\\Desktop\\SIMS 24.8\\SIMS\\Klinika\\Klinika.csproj",
+      "projectUniqueName": "C:\\Users\\DLAKAVI TALAMBAS\\Desktop\\sims 1.9\\SIMS\\Klinika\\Klinika.csproj",
       "projectName": "Klinika",
-      "projectPath": "C:\\Users\\DLAKAVI TALAMBAS\\Desktop\\SIMS 24.8\\SIMS\\Klinika\\Klinika.csproj",
+      "projectPath": "C:\\Users\\DLAKAVI TALAMBAS\\Desktop\\sims 1.9\\SIMS\\Klinika\\Klinika.csproj",
       "packagesPath": "C:\\Users\\DLAKAVI TALAMBAS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DLAKAVI TALAMBAS\\Desktop\\SIMS 24.8\\SIMS\\Klinika\\obj\\",
+      "outputPath": "C:\\Users\\DLAKAVI TALAMBAS\\Desktop\\sims 1.9\\SIMS\\Klinika\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\DLAKAVI TALAMBAS\\AppData\\Roaming\\NuGet\\NuGet.Config",
