@@ -20,14 +20,6 @@ namespace Klinika.Service
 
         }
 
-        public List<Component> GetAllComponents() => _ComponentRepo.GetAll();
-
-        public Component GetComponentByName(string name) => _ComponentRepo.GetByName(name);
-
-
-        public void SaveNewMedicine(Component component) => _ComponentRepo.SaveNewItem(component);
-
-        public void DeleteMedicin(Component component, System.Collections.ObjectModel.ObservableCollection<Component> components) => _ComponentRepo.Delete(component);
         
         public IDictionary<string, Component> ConvertObservableCollectionToIDictionary(System.Collections.ObjectModel.ObservableCollection<Component> components)
         {
@@ -59,10 +51,7 @@ namespace Klinika.Service
             return components;
         }
 
-        public void Message()
-        {
-            MessageBox.Show("BozicJeBozicJe");
-        }
+       
 
     }
 }
