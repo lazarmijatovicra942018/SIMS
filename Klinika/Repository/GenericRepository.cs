@@ -13,22 +13,12 @@ namespace Klinika.Repository
 
 
 
-        public String filePath { get; set; }
+        protected string filePath { get; set; }
 
 
 
 
-        public ObservableCollection<T> PutListInObservableCollection(List<T> entities)
-        {
-            ObservableCollection<T> collection = new ObservableCollection<T>();
-
-            foreach (T entity in entities)
-            {
-                collection.Add(entity);
-            }
-
-            return collection;
-        }
+     
 
 
         public void Delete(T entity)

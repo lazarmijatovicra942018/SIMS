@@ -22,31 +22,12 @@ namespace Klinika.Repository
 
 
         }
-
-        public Medicine FindMedicineInCollectionById(string medicineId, ObservableCollection<Medicine> medicines)
-        {
-            Medicine medicineWithId = new Medicine();
-            foreach (Medicine medicine in medicines)
-            {
-                if (medicine.id.Equals(medicineId))
-                {
-                    medicineWithId = medicine;
-                    break;
-                }
-            }
-            return medicineWithId;
-        }
-
-
         public MedicineRepository()
         {
             filePath = "medicine.json";
         }
 
-        internal ObservableCollection<Medicine> PutListInObservableCollection(bool v)
-        {
-            throw new NotImplementedException();
-        }
+       
 
 
         public void SaveChangedMedicine(Medicine changedMedicine)
