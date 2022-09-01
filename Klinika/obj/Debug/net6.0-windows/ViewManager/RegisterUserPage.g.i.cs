@@ -117,7 +117,7 @@ namespace Klinika.ViewManager {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Klinika;component/viewmanager/registeruserpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Klinika;V1.0.0.0;component/viewmanager/registeruserpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\ViewManager\RegisterUserPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

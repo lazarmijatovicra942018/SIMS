@@ -33,6 +33,8 @@ namespace klinika.Model
 
         private int QuantityForAdding;
 
+        private bool isDeleted { get; set; }
+
 
    
         public User DeclinedByUsers
@@ -128,6 +130,7 @@ namespace klinika.Model
             DeclineDescription = null;
             dateForAddingQuantities = new DateTime();
             quantityForAdding = 0;
+            isDeleted = false;
         }
 
         public Medicine()
