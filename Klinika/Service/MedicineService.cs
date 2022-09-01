@@ -17,59 +17,27 @@ namespace Klinika.Service
         private readonly MedicineRepository _MedicineRepo;
         private static UserService _userService;
         private static ComponentService _componentService;
+        private DispatcherTimer timer = new DispatcherTimer();
 
 
 
 
         private List<Medicine> medicinesWithAddingDate = new List<Medicine>();
 
-
-
-
-        public MedicineService(MedicineRepository medicineRepository,UserService userService, ComponentService componentService)
+        public MedicineService(MedicineRepository medicineRepository, UserService userService, ComponentService componentService)
         {
             _MedicineRepo = medicineRepository;
             _userService = userService;
             _componentService = componentService;
             LoadMedicinesWithDatesInList();
-              InitilaizeTimer();
-              timer.Start();
+            InitilaizeTimer();
+            timer.Start();
 
 
         }
 
-
-
-        public List<Medicine> GetAllMedication() => _MedicineRepo.GetAll();
 
         public Medicine GetMedicineById(string id) => _MedicineRepo.GetById(id);
-
-
-        public void SaveNewMedicine(Medicine medicine) => _MedicineRepo.SaveNewItem(medicine);
-
-        public void DeleteMedicin(Medicine medicine) => _MedicineRepo.Delete(medicine);
-
-
-        public ObservableCollection<Medicine> PutListInObservableCollection(List<Medicine> medicines) => _MedicineRepo.PutListInObservableCollection(medicines);
-
-        public List<Medicine> GetAllMedicationWaitingForApproval()
-        {
-            List<Medicine> medicationWaitingForApproval = new List<Medicine>();
-            List<Medicine> medicineList = GetAllMedication();
-            foreach (Medicine medicine in medicineList)
-            {
-                if (medicine.isApproved == false && medicine.isDeclined == false) { medicationWaitingForApproval.Add(medicine); }
-
-
-            }
-
-            return medicationWaitingForApproval;
-        }
-
-
-
-
-
 
         #region Sort
 
@@ -344,6 +312,141 @@ namespace Klinika.Service
 
 
         #endregion
+    
+        #region GetAllMedicineInObservableCollection
+
+
+        public ObservableCollection<Medicine> GetMedicinesApprovalPending()
+        {
+
+            List<Medicine> medicineList = _MedicineRepo.GetAll();
+            List<Medicine> medicinesApprovalPending = new List<Medicine>(medicineList);
+
+
+            foreach (Medicine medicine in medicineList)
+            {
+                if (medicine.isApproved || medicine.isDeclined)
+                {
+                    medicinesApprovalPending.Remove(medicine);
+                }
+            }
+            return new ObservableCollection<Medicine>(medicinesApprovalPending);
+        }
+
+        public ObservableCollection<Medicine> GetAllApprovedAndDeclinedMedicines()
+        {
+            List<Medicine> allMedicines = _MedicineRepo.GetAll();
+            ObservableCollection<Medicine> approvedAndDeckinedMedicines = new ObservableCollection<Medicine>();
+
+
+            foreach (Medicine medicine in allMedicines)
+            {
+                if (medicine.isDeclined || medicine.isApproved)
+                {
+                    approvedAndDeckinedMedicines.Add(medicine);
+                }
+            }
+            return approvedAndDeckinedMedicines;
+        }
+
+
+        public ObservableCollection<Medicine> GetAllApprovedMedicines()
+        {
+            List<Medicine> allMedicines = _MedicineRepo.GetAll();
+            ObservableCollection<Medicine> approvedMedicines = new ObservableCollection<Medicine>();
+
+            foreach (Medicine medicine in allMedicines)
+            {
+                if (medicine.isApproved)
+                {
+                    approvedMedicines.Add(medicine);
+                }
+            }
+            return approvedMedicines;
+        }
+
+
+        public ObservableCollection<Medicine> GetAllADeclinedMedicines()
+        {
+            List<Medicine> allMedicines = _MedicineRepo.GetAll();
+            ObservableCollection<Medicine> decklinedMedicines = new ObservableCollection<Medicine>();
+            foreach (Medicine medicine in allMedicines)
+            {
+                if (medicine.isDeclined)
+                {
+                    decklinedMedicines.Add(medicine);
+                }
+
+            }
+
+            return decklinedMedicines;
+        }
+
+        #endregion
+
+        #region AddQuantity
+        public void AddQuantity(Medicine selectedMedicine, int quantity)
+        {
+            selectedMedicine.quantity = quantity + selectedMedicine.quantity;
+            _MedicineRepo.SaveChangedMedicine(selectedMedicine);
+        }
+            
+        
+
+        public void AddQuantityWithTime(Medicine selectedMedicine, int quantity, DateTime timeForAdding)
+        {
+            selectedMedicine.quantityForAdding = quantity;
+            selectedMedicine.dateForAddingQuantities = timeForAdding;
+            _MedicineRepo.SaveChangedMedicine(selectedMedicine);
+            LoadMedicinesWithDatesInList();
+        }
+
+        public void LoadMedicinesWithDatesInList()
+        {
+            List<Medicine> medicationWithDates = _MedicineRepo.GetAll();
+            medicinesWithAddingDate = new List<Medicine>();
+            foreach (Medicine medicine in medicationWithDates)
+            {
+                if (medicine.dateForAddingQuantities != new DateTime()) { medicinesWithAddingDate.Add(medicine); };
+            }
+        }
+
+        #region Timer
+
+        private void InitilaizeTimer()
+        {
+            timer.Interval = TimeSpan.FromSeconds(60);
+            timer.Tick += timer_Tict;
+
+        }
+
+        private void timer_Tict(object? sender, EventArgs e)
+        {
+            foreach (Medicine medicine in medicinesWithAddingDate)
+            {
+                if (medicine.dateForAddingQuantities < DateTime.Now)
+                {
+                    medicine.dateForAddingQuantities = new DateTime();
+                    AddQuantity(medicine, medicine.quantityForAdding);
+
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region AddNewMedicine
+        public void AddNewMedicine(string id, string name, string manufactur, ObservableCollection<Component> componentsOb, int quantity, double price)
+        {
+            IDictionary<string, Component> components = _componentService.ConvertObservableCollectionToIDictionary(componentsOb);
+            Medicine medicine = new Medicine(id, name, manufactur, components, quantity, price);
+            _MedicineRepo.SaveNewItem(medicine);
+
+        }
+
+        #endregion
 
         #region MedicineApproval
 
@@ -351,16 +454,18 @@ namespace Klinika.Service
         {
 
 
-            AddUserToAprovalList(medicineForApproval);
+            medicineForApproval = AddUserToAprovalList(medicineForApproval);
 
-            CheckIfMedicineCanBeApproved(medicineForApproval);
+            medicineForApproval = CheckIfMedicineCanBeApproved(medicineForApproval);
+
+            _MedicineRepo.SaveChangedMedicine(medicineForApproval);
 
 
         }
 
 
 
-        public void AddUserToAprovalList(Medicine medicineForApproval)
+        public Medicine AddUserToAprovalList(Medicine medicineForApproval)
         {
             User activeUser = _userService.ActiveUser;
             if (!medicineForApproval.ApprovedByUsers.Contains(activeUser))
@@ -368,10 +473,12 @@ namespace Klinika.Service
                 medicineForApproval.ApprovedByUsers.Add(activeUser);
 
             }
+
+            return medicineForApproval;
         }
 
 
-        public void CheckIfMedicineCanBeApproved(Medicine medicineForApproval)
+        public Medicine CheckIfMedicineCanBeApproved(Medicine medicineForApproval)
         {
             int farmaceuti = 0;
             int doktor = 0;
@@ -392,236 +499,26 @@ namespace Klinika.Service
 
                 medicineForApproval.isApproved = true;
             }
+
+            return medicineForApproval;
         }
 
         #endregion
 
         #region MedicineDecline
-        public void MedicineDecline(Medicine medicineForDecline, User activeUser, string description)
-        {
 
+        public void MedicineDecline(Medicine medicineForDecline, string description)
+        {
             medicineForDecline.isDeclined = true;
             medicineForDecline.DeclineDescription = description;
-            medicineForDecline.DeclinedByUsers = activeUser;
-
-        }
-        #endregion
-
-        public void SaveMedicines(List<Medicine> partialMedicalList)
-        {
-
-            foreach (Medicine medicine in GetAllMedication())
-            {
-                if (!partialMedicalList.Contains(medicine))
-                {
-                    partialMedicalList.Add(medicine);
-                }
-
-            }
-
-
-            _MedicineRepo.Serialize(partialMedicalList);
+            medicineForDecline.DeclinedByUsers = _userService.ActiveUser;
+            _MedicineRepo.SaveChangedMedicine(medicineForDecline);
 
         }
 
-
-        public void SaveChangedMedicine(Medicine changedMedicine)
-        {
-            List<Medicine> medicineList = GetAllMedication();
-            foreach (Medicine medicine in medicineList.ToList())
-            {
-                if (changedMedicine.id == medicine.id)
-                {
-                    medicineList.Remove(medicine);
-
-                }
-            }
-
-
-            medicineList.Add(changedMedicine);
-
-            _MedicineRepo.Serialize(medicineList);
-
-        }
-
-
-        #region GetAllMedicineInObservableCollection
-
-
-        public ObservableCollection<Medicine> GetObservableListApprovalPending(ObservableCollection<Medicine> medicines)
-        {
-
-            ObservableCollection<Medicine> clonedMedicinesCollection = new ObservableCollection<Medicine>(medicines);
-
-
-            foreach (Medicine medicine in clonedMedicinesCollection)
-            {
-                if (medicine.isApproved || medicine.isDeclined)
-                {
-                    medicines.Remove(medicine);
-                }
-
-            }
-
-
-            return medicines;
-        }
-        public ObservableCollection<Medicine> GetAllApprovedAndDeclinedMedicines()
-        {
-            ObservableCollection<Medicine> allMedicines = new ObservableCollection<Medicine>();
-            allMedicines = _MedicineRepo.PutListInObservableCollection(GetAllMedication());
-            ObservableCollection<Medicine> approvedAndDeckinedMedicines = new ObservableCollection<Medicine>();
-
-
-            foreach (Medicine medicine in allMedicines)
-            {
-                if (medicine.isDeclined || medicine.isApproved)
-                {
-                    approvedAndDeckinedMedicines.Add(medicine);
-                }
-
-            }
-
-
-            return approvedAndDeckinedMedicines;
-
-
-
-        }
-
-
-        public ObservableCollection<Medicine> GetAllApprovedMedicines()
-        {
-            ObservableCollection<Medicine> allMedicines = new ObservableCollection<Medicine>();
-            allMedicines = _MedicineRepo.PutListInObservableCollection(GetAllMedication());
-            ObservableCollection<Medicine> approvedMedicines = new ObservableCollection<Medicine>();
-
-
-            foreach (Medicine medicine in allMedicines)
-            {
-                if (medicine.isApproved)
-                {
-                    approvedMedicines.Add(medicine);
-                }
-
-            }
-
-
-
-
-            return approvedMedicines;
-
-
-        }
-
-
-        public ObservableCollection<Medicine> GetAllADeclinedMedicines()
-        {
-            ObservableCollection<Medicine> allMedicines = new ObservableCollection<Medicine>();
-            allMedicines = _MedicineRepo.PutListInObservableCollection(GetAllMedication());
-            ObservableCollection<Medicine> decklinedMedicines = new ObservableCollection<Medicine>();
-
-
-            foreach (Medicine medicine in allMedicines)
-            {
-                if (medicine.isDeclined)
-                {
-                    decklinedMedicines.Add(medicine);
-                }
-
-            }
-
-
-
-
-            return decklinedMedicines;
-
-        }
 
         #endregion
 
-        public void AddQuantity(Medicine selectedMedicine, int quantity)
-        {
-
-
-
-            List<Medicine> medicineList = GetAllMedication();
-            Medicine medicineForAdition = FindMedicineById(medicineList, selectedMedicine.id);
-            medicineForAdition.quantity = quantity + medicineForAdition.quantity;
-            _MedicineRepo.Serialize(medicineList);
-
-        }
-
-        private DispatcherTimer timer = new DispatcherTimer();
-
-
-        public void AddQuantityWithTime(Medicine selectedMedicine, int quantity, DateTime timeForAdding)
-        {
-
-
-            selectedMedicine.quantityForAdding = quantity;
-            selectedMedicine.dateForAddingQuantities = timeForAdding;
-            SaveChangedMedicine(selectedMedicine);
-            LoadMedicinesWithDatesInList();
-
-
-        }
-
-
-
-
-        private void InitilaizeTimer()
-        {
-            timer.Interval = TimeSpan.FromSeconds(60);
-            timer.Tick += timer_Tict;
-
-        }
-
-        private void timer_Tict(object? sender, EventArgs e)
-        {
-            foreach (Medicine medicine in medicinesWithAddingDate)
-            {
-                if (medicine.dateForAddingQuantities < DateTime.Now)
-                {
-                    int quantity = medicine.quantityForAdding;
-                    medicine.dateForAddingQuantities = new DateTime();
-
-
-                    AddQuantity(medicine, quantity);
-
-                }
-            }
-
-        }
-
-        public void LoadMedicinesWithDatesInList()
-        {
-            List<Medicine> medicationWithDates = GetAllMedication();
-            foreach (Medicine medicine in medicationWithDates)
-            {
-                if (medicine.dateForAddingQuantities != new DateTime()) { medicinesWithAddingDate.Add(medicine); };
-
-            }
-
-        }
-
-
-
-        private Medicine FindMedicineById(List<Medicine> medicineList, string id)
-        {
-            foreach (Medicine medicine in medicineList)
-            {
-                if (medicine.id == id) { return medicine; }
-            }
-            return null;
-        }
-
-        public void AddNewMedicine(string id, string name, string manufactur, ObservableCollection<Component> componentsOb, int quantity, double price)
-        {
-              IDictionary<string, Component>  components = _componentService.ConvertObservableCollectionToIDictionary(componentsOb);
-              Medicine medicine = new Medicine(id, name, manufactur, components, quantity, price);
-              SaveChangedMedicine(medicine);
-        }
     }
 
 }

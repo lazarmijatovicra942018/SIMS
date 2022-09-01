@@ -2,6 +2,7 @@
 using Klinika.Controller;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +14,7 @@ namespace Klinika.ViewManager
     /// </summary>
     public partial class ValidationMedicinePage : Page
     {
-        public static ObservableCollection<Medicine> medicines { get; set; }
+        public static ObservableCollection<Medicine> medicines = new ObservableCollection<Medicine>();
 
         private List<Medicine> medicineList { get; set; }
 
@@ -31,151 +32,177 @@ namespace Klinika.ViewManager
 
             this.DataContext = this;
 
-            medicineList = _medicineController.GetAllMedicationWaitingForApproval();
+            LoadMedicinesApprovalPending();
 
-            if (medicineList == null)
+
+
+
+        }
+
+        #region LoadMedicines
+
+        public void LoadMedicinesApprovalPending()
+        {
+            medicines = _medicineController.GetMedicinesApprovalPending();
+            FilterMedicines();
+
+        }
+
+        #endregion
+
+        #region SortMedicine
+        private void SortCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SortMedicines();
+        }
+
+
+
+        private void SortMedicines()
+        {
+            if (sorterCombo.SelectedIndex != -1)
             {
-                medicineList = new List<Medicine>();
+                medicines = new ObservableCollection<Medicine>(_medicineController.MedicineListSorter(sorterCombo.SelectedIndex, medicines.ToList()));
             }
 
-            medicines = _medicineController.PutListInObservableCollection(medicineList);
+            MakeDisabledHiddenAmdClearded();
             dataGridMedicine.ItemsSource = medicines;
-
-
-
-
         }
 
+        #endregion
 
+        #region Filter
 
-        private void dataGridSale_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void FilterCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            SerchBoxVisibility();
+            ClearAllTextFileds();
+            FilterMedicines();
         }
 
-        private void ChangedSort(object sender, SelectionChangedEventArgs e)
+
+        public void FilterMedicines()
         {
+            if (filterCombo.SelectedIndex != -1)
+            {
 
-            medicineList = _medicineController.MedicineListSorter(sorter.SelectedIndex, medicineList);
-            dataGridMedicine.ItemsSource = new ObservableCollection<Medicine>(medicineList);
+                if (!string.IsNullOrEmpty(searchTextBox.Text))
+                {
+                    medicines = _medicineController.SearchBy(filterCombo.SelectedIndex, medicines.ToList(), searchTextBox.Text.ToString());
+                }
+                else if (PriceCheck())
+                {
+                    medicines = _medicineController.SearchByPrice(medicines.ToList(), searchMinTextBox.Text, searchMaxTextBox.Text);
+                }
+            }
 
 
+            SortMedicines();
         }
 
-        private void FilterCombo(object sender, SelectionChangedEventArgs e)
-        {
-            searchBox.Clear();
-            searchMinBox.Clear();
-            searchMaxBox.Clear();
-
-
-            if (filter.SelectedIndex == 0)
-            {
-                MinTextBlock.Visibility = Visibility.Visible;
-                MaxTextBlock.Visibility = Visibility.Visible;
-
-                searchMaxBox.Visibility = Visibility.Visible;
-                searchMinBox.Visibility = Visibility.Visible;
-
-
-            }
-            else
-            {
-                MinTextBlock.Visibility = Visibility.Hidden;
-                MaxTextBlock.Visibility = Visibility.Hidden;
-
-                searchMaxBox.Visibility = Visibility.Hidden;
-                searchMinBox.Visibility = Visibility.Hidden;
-
-
-
-            }
-
-            if (filter.SelectedIndex > 0)
-            {
-                searchBox.Visibility = Visibility.Visible;
-
-
-            }
-            else
-            {
-                searchBox.Visibility = Visibility.Hidden;
-            }
-
-
-
-
-
-        }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
-
-            if (searchBox.Text != "")
-            {
-
-
-                dataGridMedicine.ItemsSource = _medicineController.SearchBy(filter.SelectedIndex, medicineList, searchBox.Text);
-
-
-            }
-            else if (((searchMinBox.Text + searchMaxBox.Text) != "") && Regex.IsMatch((searchMinBox.Text + searchMaxBox.Text), @"^\d+$"))
-            {
-                dataGridMedicine.ItemsSource = _medicineController.SearchByPrice(medicineList, searchMinBox.Text, searchMaxBox.Text);
-
-            }
-            else
-            {
-                dataGridMedicine.ItemsSource = medicines;
-
-            }
+            LoadMedicinesApprovalPending();
         }
+
+        #endregion
+
+        #region DataGrid
 
         private void dataGridSMedicine_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dataGridMedicine.SelectedItem != null)
             {
-                Sastojci.IsEnabled = true;
-                Odbijanje.IsEnabled = true;
-                Odobravanje.IsEnabled = true;
-                Description.Visibility = Visibility.Visible;
-                DescriptionLabel.Visibility = Visibility.Visible;
-
+                MakeEnabledAndVisible();
+            }
+            else
+            {
+                MakeDisabledHiddenAmdClearded();
             }
 
 
         }
 
+        #endregion
+
+        #region EnableDisableVisibleHiddenClear
+
+        public void MakeEnabledAndVisible()
+        {
+            componentsButton.IsEnabled = true;
+            acceptButton.IsEnabled = true;
+            DescriptionLabel.Visibility = Visibility.Visible;
+            DescriptionTextBox.Visibility = Visibility.Visible;
+        }
 
 
-        private void Sastojci_Click(object sender, RoutedEventArgs e)
+        public void MakeDisabledHiddenAmdClearded()
+        {
+            componentsButton.IsEnabled = false;
+            acceptButton.IsEnabled = false;
+            declineButton.IsEnabled = false;
+            DescriptionLabel.Visibility = Visibility.Hidden;
+            DescriptionTextBox.Visibility = Visibility.Hidden;
+            dataGridMedicine.SelectedItem = null;
+            DescriptionTextBox.Clear();
+        }
+
+        private void SerchBoxVisibility()
+        {
+            if (filterCombo.SelectedIndex == 0)
+            {
+                searchTextBox.Visibility = Visibility.Hidden;
+                searchMinTextBox.Visibility = Visibility.Visible;
+                searchMaxTextBox.Visibility = Visibility.Visible;
+                searchMaxTextBlock.Visibility = Visibility.Visible;
+                searchMinTextBlock.Visibility = Visibility.Visible;
+
+            }
+            else
+            {
+                searchTextBox.Visibility = Visibility.Visible;
+                searchMinTextBox.Visibility = Visibility.Hidden;
+                searchMaxTextBox.Visibility = Visibility.Hidden;
+                searchMaxTextBlock.Visibility = Visibility.Hidden;
+                searchMinTextBlock.Visibility = Visibility.Hidden;
+
+
+            }
+        }
+
+        public void ClearAllTextFileds()
+        {
+            searchMaxTextBox.Clear();
+            searchMinTextBox.Clear();
+            searchTextBox.Clear();
+
+        }
+
+        #endregion
+
+        #region ViewComponents
+        private void ComponentsButton_Click(object sender, RoutedEventArgs e)
         {
             Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
             ComponentsWindow componentsWindow = new ComponentsWindow(selectedMedicine);
             componentsWindow.Show();
 
-
+            MakeDisabledHiddenAmdClearded();
 
         }
 
-        private void Decline_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        #region AcceptAndDecline
+        private void DeclineButton_Click(object sender, RoutedEventArgs e)
         {
 
+
             Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
-
-            _medicineController.MedicineDecline(selectedMedicine, _userController.GetActiveUser, Description.Text.ToString());
-
-
-            _medicineController.GetObservableListApprovalPending(medicines);
-
-            _medicineController.SaveChangedMedicine(selectedMedicine);
-
-
-
-            dataGridMedicine.ItemsSource = medicines;
-
-            Description.Clear();
+            _medicineController.MedicineDecline(selectedMedicine, DescriptionTextBox.Text.ToString());
+            MakeDisabledHiddenAmdClearded();
+            LoadMedicinesApprovalPending();
 
 
         }
@@ -183,25 +210,53 @@ namespace Klinika.ViewManager
 
 
 
-        private void Accept_Click(object sender, RoutedEventArgs e)
+        private void AcceptButton_Click(object sender, RoutedEventArgs e)
         {
-
-
-
             Medicine selectedMedicine = (Medicine)dataGridMedicine.SelectedItem;
-
-
-
             _medicineController.MedicineApproval(selectedMedicine);
-
-            _medicineController.SaveChangedMedicine(selectedMedicine);
-
-
-            _medicineController.GetObservableListApprovalPending(medicines);
-            dataGridMedicine.ItemsSource = medicines;
-
+            MakeDisabledHiddenAmdClearded();
+            LoadMedicinesApprovalPending();
 
         }
+
+        private void DescriptionTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(DescriptionTextBox.Text))
+            {
+                declineButton.IsEnabled = true;
+            }
+            else
+            {
+                declineButton.IsEnabled = false;
+
+            }
+        }
+
+        #endregion
+
+        #region Check
+
+        public bool PriceCheck()
+        {
+            if (string.IsNullOrEmpty(searchMaxTextBox.Text + searchMinTextBox.Text))
+            {
+                return false;
+
+            }
+            else if (!Regex.IsMatch(searchMaxTextBox.Text + searchMinTextBox.Text, @"^\d+$"))
+            {
+
+                MessageBox.Show("Cena mora biti izrazena brojevima .");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+
+        }
+
+        #endregion
     }
 }
 

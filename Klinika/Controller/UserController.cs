@@ -1,4 +1,5 @@
-﻿using Klinika.Model;
+﻿using klinika.Enum;
+using Klinika.Model;
 using Klinika.Service;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,12 +28,11 @@ namespace Klinika.Controller
 
         public User GetUserByEmail(string email) => _UserService.GetUserByEmail(email);
 
-        public string LoginValidationByEmailAndPassword(string email, string password) => _UserService.LoginValidation(email, password);
+        public bool LoginValidationByEmailAndPassword(string email, string password) => _UserService.LoginValidation(email, password);
 
+        public void SaveNewUser(string name , string lastName, string  password,string jmbg,string email, string phoneNumber, UserType userType) => _UserService.SaveNewUser(name,lastName,password,jmbg,email,phoneNumber,userType);
 
-        public void SaveNewUser(User user) => _UserService.SaveNewUser(user);
-
-        public ObservableCollection<User> GetAllUsersInObservableCollection() => _UserService.GetAllUsersInObservableCollection();
+        public ObservableCollection<User> GetAllUsers() => _UserService.GetAllUsers();
         public void LogOut() => _UserService.LogOut();
 
         public ObservableCollection<User> FilteringUsers(int userTypeIndex) => _UserService.FilteringUsers(userTypeIndex);

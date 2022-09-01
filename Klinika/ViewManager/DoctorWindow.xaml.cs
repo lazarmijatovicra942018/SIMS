@@ -13,7 +13,7 @@ namespace Klinika.ViewManager
         public DoctorWindow()
         {
             InitializeComponent();
-            Sadrzaj.NavigationService.Navigate(new UserPage());
+            Content.NavigationService.Navigate(new UserPage());
 
             var app = Application.Current as App;
             _userController = app.UserController;
@@ -21,7 +21,7 @@ namespace Klinika.ViewManager
 
         }
 
-        private void Odjava_Click(object sender, RoutedEventArgs e)
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             _userController.LogOut();
             MainWindow mainWindow = new MainWindow();
@@ -29,17 +29,17 @@ namespace Klinika.ViewManager
             this.Hide();
         }
 
-        private void Validacija_Click(object sender, RoutedEventArgs e)
+        private void ValidationButton_Click(object sender, RoutedEventArgs e)
         {
-            Sadrzaj.NavigationService.Navigate(new ValidationMedicinePage());
+            Content.NavigationService.Navigate(new ValidationMedicinePage());
 
 
         }
 
 
-        private void SviLekovi_Click(object sender, RoutedEventArgs e)
+        private void UserPageButton_Click(object sender, RoutedEventArgs e)
         {
-            Sadrzaj.NavigationService.Navigate(new UserPage());
+            Content.NavigationService.Navigate(new UserPage());
 
         }
     }

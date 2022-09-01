@@ -45,24 +45,24 @@
         <Grid Grid.Row="1">
 
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
-                <TextBox x:Name="searchMaxBox" Visibility="Hidden"  FlowDirection="LeftToRight" Grid.Row="0" VerticalAlignment="Top"   Margin="180,20,0,0"  Width="70" Height="30"  TextChanged="TextBox_TextChanged"/>
-                <TextBox x:Name="searchMinBox" Visibility="Hidden" FlowDirection="LeftToRight"  Grid.Row="0" VerticalAlignment="Top"   Margin="10,20,0,0"  Width="70" Height="30"  TextChanged="TextBox_TextChanged"/>
+                <TextBox x:Name="searchMaxTextBox" Visibility="Hidden"  FlowDirection="LeftToRight" Grid.Row="0" VerticalAlignment="Top"   Margin="180,20,0,0"  Width="70" Height="30"  TextChanged="TextBox_TextChanged"/>
+                <TextBox x:Name="searchMinTextBox" Visibility="Hidden" FlowDirection="LeftToRight"  Grid.Row="0" VerticalAlignment="Top"   Margin="10,20,0,0"  Width="70" Height="30"  TextChanged="TextBox_TextChanged"/>
 
             </StackPanel>
 
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
-                <ComboBox SelectionChanged="ChangedSort" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="sorter" >
+                <ComboBox SelectionChanged="SortComboSelection_Changed" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="sorterCombo" >
                     <ComboBoxItem Content="imenu leka" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="ceni" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="preostaloj kolicini u magacinu" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                 </ComboBox>
 
-                <TextBox x:Name="searchBox" Grid.Row="0"  Visibility="Hidden" FlowDirection="LeftToRight" VerticalAlignment="Top"  TextAlignment="Left" Margin="30,20,0,0"  Width="130" Height="30"  TextChanged="TextBox_TextChanged"/>
+                <TextBox x:Name="searchTextBox" Grid.Row="0"  Visibility="Hidden" FlowDirection="LeftToRight" VerticalAlignment="Top"  TextAlignment="Left" Margin="30,20,0,0"  Width="130" Height="30"  TextChanged="TextBox_TextChanged"/>
 
-                
-                
-                <ComboBox SelectionChanged="FilterCombo" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="filter" >
+
+
+                <ComboBox SelectionChanged="FilterCombo_SelectionChanged" Margin="30,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="filterCombo" >
                     <ComboBoxItem Content="po opsegu cene" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="sifri" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="imenu" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -74,7 +74,7 @@
 
                 </ComboBox>
 
-                <ComboBox SelectionChanged="ShowCombo" Margin="20,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="show"  >
+                <ComboBox SelectionChanged="ShowCombo_SelectionChanged" Margin="20,20,0,0" Grid.Row="2" Grid.Column="1" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Width="130" Height="30" BorderBrush="Black" Name="show"  >
                     <ComboBoxItem Content="sve lekove" HorizontalAlignment="Center" VerticalAlignment="Center"  />
                     <ComboBoxItem Content="odobrene lekove" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ComboBoxItem Content="odbijene lekove" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -90,8 +90,8 @@
 
 
                 <TextBlock FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="30,20,0,0"  FontSize="20"><Run Text=": Sortiranje po"/></TextBlock>
-                <TextBlock Name="MaxTextBlock"  Visibility="Hidden" FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="40,20,0,0"  FontSize="20"><Run Text=": Maks"/></TextBlock>
-                <TextBlock Name="MinTextBlock"  Visibility="Hidden" FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="40,20,0,0"  FontSize="20"><Run Text=": Min"/></TextBlock>
+                <TextBlock Name="searchMaxTextBlock"  Visibility="Hidden" FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="40,20,0,0"  FontSize="20"><Run Text=": Maks"/></TextBlock>
+                <TextBlock Name="searchMinTextBlock"  Visibility="Hidden" FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="40,20,0,0"  FontSize="20"><Run Text=": Min"/></TextBlock>
 
                 <TextBlock FontFamily="Candara" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="45,20,0,0"  FontSize="20"><Run Text=": Pretrazi po"/></TextBlock>
 
@@ -107,9 +107,9 @@
         <Grid Grid.Row="4">
             <StackPanel FlowDirection="RightToLeft" Orientation="Horizontal">
 
-                <Button  ToolTip="Prikaz Sastojaka leka " Content="Sastojci" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="Sastojci" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="Sastojci_Click" />
+                <Button  ToolTip="Prikaz Sastojaka leka " Content="Sastojci" Background="#005555"  FontFamily="Candara" FontWeight="Bold" Foreground="White"  x:Name="componentsButton" IsEnabled="False" Margin="30,20,0,0" Width="100" Height="30"   FontSize="15"   BorderBrush="{x:Null}" Click="ComponentsButton_Click" />
 
-                <TextBox x:Name="Description" Grid.Row="0"  Visibility="Hidden" FlowDirection="LeftToRight" VerticalAlignment="Top"  TextAlignment="Left" Margin="280,0,0,0"  Width="200" Height="60"  TextChanged="TextBox_TextChanged"  TextWrapping="Wrap"
+                <TextBox x:Name="Description" Grid.Row="0" IsReadOnly="True" Visibility="Hidden" FlowDirection="LeftToRight" VerticalAlignment="Top"  TextAlignment="Left" Margin="280,0,0,0"  Width="200" Height="60"  TextChanged="TextBox_TextChanged"  TextWrapping="Wrap"
   AcceptsReturn="True"/>
 
 

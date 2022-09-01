@@ -17,36 +17,18 @@ namespace Klinika.Controller
             _MedicineService = medicineService;
         }
 
-        public List<Medicine> GetAllMedicines() => _MedicineService.GetAllMedication();
-
-        public ObservableCollection<Medicine> PutListInObservableCollection(List<Medicine> medicines) => _MedicineService.PutListInObservableCollection(medicines);
-
         public Medicine GetMedicineById(string id) => _MedicineService.GetMedicineById(id);
-
-        public void SaveMedicines(List<Medicine> partialMedicalList) => _MedicineService.SaveMedicines(partialMedicalList);
-
-        public void SaveChangedMedicine(Medicine changedMedicine) => _MedicineService.SaveChangedMedicine(changedMedicine);
-
-        public void SaveNewMedicine(Medicine medicine) => _MedicineService.SaveNewMedicine(medicine);
-
-
         public List<Medicine> MedicineListSorter(int sortChoise, List<Medicine> medicineList) => _MedicineService.MedicineListSorter(sortChoise, medicineList);
 
         public ObservableCollection<Medicine> SearchBy(int searchableitem, List<Medicine> medicineList, string searchBoxText) => _MedicineService.SearchBy(searchableitem, medicineList, searchBoxText);
 
         public ObservableCollection<Medicine> SearchByPrice(List<Medicine> medicineList, string minPrice, string maxPrice) => _MedicineService.SearchByPrice(medicineList, minPrice, maxPrice);
 
-
-
-        public List<Medicine> GetAllMedicationWaitingForApproval() => _MedicineService.GetAllMedicationWaitingForApproval();
-
-
-        public ObservableCollection<Medicine> GetObservableListApprovalPending(ObservableCollection<Medicine> medicines) => _MedicineService.GetObservableListApprovalPending(medicines);
+        public ObservableCollection<Medicine> GetMedicinesApprovalPending() => _MedicineService.GetMedicinesApprovalPending();
 
         public void MedicineApproval(Medicine medicineForApproval) => _MedicineService.MedicineApproval(medicineForApproval);
 
-        public void MedicineDecline(Medicine medicineForDecline, User activeUser, string description) => _MedicineService.MedicineDecline(medicineForDecline, activeUser, description);
-
+        public void MedicineDecline(Medicine medicineForDecline, string description) => _MedicineService.MedicineDecline(medicineForDecline, description);
 
         public ObservableCollection<Medicine> GetAllApprovedAndDeclinedMedicines() => _MedicineService.GetAllApprovedAndDeclinedMedicines();
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace Klinika.Repository
 {
@@ -48,6 +49,23 @@ namespace Klinika.Repository
         }
 
 
+        public void SaveChangedMedicine(Medicine changedMedicine)
+        {
 
+            List<Medicine> medicineList = GetAll();
+            foreach (Medicine medicine in medicineList.ToList())
+            {
+                if (changedMedicine.id == medicine.id)
+                {
+                    medicineList.Remove(medicine);
+
+                }
+            }
+
+            if (changedMedicine != null) { medicineList.Add(changedMedicine); }
+
+            Serialize(medicineList);
+
+        }
     }
 }

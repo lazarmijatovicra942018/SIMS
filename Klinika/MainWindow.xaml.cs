@@ -25,8 +25,8 @@ namespace Klinika
 
         public void LoginFunction()
         {
-            string returnMessage = _userController.LoginValidationByEmailAndPassword(email.Text, password.Text);
-            if (returnMessage == "logged")
+            bool returnMessage = _userController.LoginValidationByEmailAndPassword(email.Text, password.Text);
+            if (returnMessage)
             {
 
                 LoggedIn();
@@ -38,30 +38,11 @@ namespace Klinika
                 Environment.Exit(0);
 
             }
-            else
-            {
-                MessagesNotLoggedInCorrectly(returnMessage);
-            }
+
 
         }
 
-        private void MessagesNotLoggedInCorrectly(string returnMessage)
-        {
-            if (returnMessage == "notExist")
-            {
-                MessageBox.Show("Email  nije validan .");
-            }
-            else if (returnMessage == "wrongPassword")
-            {
-                MessageBox.Show("Sifra  nije pravilno napisana .");
 
-            }
-            else if (returnMessage == "baned")
-            {
-                MessageBox.Show("Korisnik je blokiran .");
-
-            }
-        }
 
         public void LoggedIn()
         {
